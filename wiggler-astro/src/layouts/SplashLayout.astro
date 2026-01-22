@@ -1,0 +1,11 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+---
+
+<slot />
+
+<style>
+	:global(.content-panel:has(h1)) {
+		display: none !important;
+	}
+</style>

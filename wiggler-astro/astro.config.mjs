@@ -6,7 +6,13 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'Wiggler',
+			logo: {
+				src: '/src/assets/houston.webp',
+				replacesTitle: true
+			},
+			// Set English as the default language for this site.
+			defaultLocale: 'en',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{
