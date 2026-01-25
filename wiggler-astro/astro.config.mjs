@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import mdx from '@astrojs/mdx';
 
 // Weapon configuration
 const weapons = [
@@ -47,6 +48,13 @@ function generateGameSidebar(/** @type {string} */ game) {
 
 // https://astro.build/config
 export default defineConfig({
+	vite: {
+		resolve: {
+			alias: {
+				'@components': '/src/components',
+			},
+		},
+	},
 	integrations: [
 		starlight({
 			title: 'Wiggler',
@@ -73,5 +81,6 @@ export default defineConfig({
 				},
 			],
 		}),
+		mdx(),
 	],
 });

@@ -1,0 +1,120 @@
+---
+// Control Scheme Switcher Component
+// Allows users to select their preferred control scheme (Switch, PlayStation, Xbox, or Mouse & Keyboard)
+// Stores preference in localStorage and dispatches events for other components to react
+---
+
+<control-scheme-switcher>
+	<label for="control-scheme-select" class="scheme-label">
+		Control Scheme:
+	</label>
+	<select id="control-scheme-select" class="scheme-select">
+		<option value="switch">Nintendo Switch</option>
+		<option value="playstation">PlayStation</option>
+		<option value="xbox">Xbox</option>
+		<option value="keyboard">Mouse & Keyboard</option>
+	</select>
+</control-scheme-switcher>
+
+<script>
+	class ControlSchemeSwitcher extends HTMLElement {
+		private select: HTMLSelectElement;
+		private readonly STORAGE_KEY = 'wiggler-control-scheme';
+
+		constructor() {
+			super();
+			this.select = this.querySelector('#control-scheme-select') as HTMLSelectElement;
+
+			// Load saved preference
+			this.loadPreference();
+
+			// Listen for changes
+			this.select.addEventListener('change', () => this.handleChange());
+		}
+
+		loadPreference() {
+			const saved = localStorage.getItem(this.STORAGE_KEY);
+			if (saved && this.isValidScheme(saved)) {
+				this.select.value = saved;
+				this.dispatchSchemeChange(saved);
+			} else {
+				// Default to Switch
+				this.select.value = 'switch';
+				this.dispatchSchemeChange('switch');
+			}
+		}
+
+		handleChange() {
+			const scheme = this.select.value;
+			localStorage.setItem(this.STORAGE_KEY, scheme);
+			this.dispatchSchemeChange(scheme);
+		}
+
+		dispatchSchemeChange(scheme: string) {
+			// Dispatch custom event that other components can listen to
+			const event = new CustomEvent('control-scheme-change', {
+				detail: { scheme },
+				bubbles: true,
+			});
+			window.dispatchEvent(event);
+		}
+
+		isValidScheme(scheme: string): boolean {
+			return ['switch', 'playstation', 'xbox', 'keyboard'].includes(scheme);
+		}
+	}
+
+	customElements.define('control-scheme-switcher', ControlSchemeSwitcher);
+</script>
+
+<style>
+	control-scheme-switcher {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1rem;
+		background: var(--sl-color-gray-6);
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: var(--sl-border-radius);
+		margin-bottom: 1.5rem;
+	}
+
+	.scheme-label {
+		font-weight: 600;
+		color: var(--sl-color-white);
+		font-size: 0.95rem;
+	}
+
+	.scheme-select {
+		padding: 0.5rem 0.75rem;
+		background: var(--sl-color-gray-5);
+		color: var(--sl-color-white);
+		border: 1px solid var(--sl-color-gray-4);
+		border-radius: calc(var(--sl-border-radius) - 2px);
+		font-size: 0.95rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.scheme-select:hover {
+		background: var(--sl-color-gray-4);
+		border-color: var(--sl-color-accent);
+	}
+
+	.scheme-select:focus {
+		outline: 2px solid var(--sl-color-accent);
+		outline-offset: 2px;
+	}
+
+	@media (max-width: 640px) {
+		control-scheme-switcher {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.scheme-select {
+			width: 100%;
+		}
+	}
+</style>

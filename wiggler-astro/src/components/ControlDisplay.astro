@@ -1,0 +1,156 @@
+---
+// Control Display Component
+// Displays game controls that automatically update based on the user's selected control scheme
+// Usage: <ControlDisplay control="X" /> (automatically maps to all platforms)
+// Legacy: <ControlDisplay switch="Y" playstation="Triangle" xbox="Y" keyboard="Space" />
+
+import { getControlMapping } from '../utils/controlsMapping';
+
+interface Props {
+	control?: string; // New simplified prop - just specify the Switch button
+	switch?: string; // Legacy support
+	playstation?: string; // Legacy support
+	xbox?: string; // Legacy support
+	keyboard?: string; // Legacy support
+	label?: string; // Optional label like "Jump:" or "Attack:"
+}
+
+const { control, switch: switchControl, playstation, xbox, keyboard, label } = Astro.props;
+
+// If 'control' prop is provided, use the mapping system
+let finalSwitch: string;
+let finalPlaystation: string;
+let finalXbox: string;
+let finalKeyboard: string;
+
+if (control) {
+	const mapping = getControlMapping(control);
+	if (mapping) {
+		finalSwitch = mapping.switch;
+		finalPlaystation = mapping.playstation;
+		finalXbox = mapping.xbox;
+		finalKeyboard = mapping.keyboard;
+	} else {
+		// Fallback if mapping not found - use the control value for all platforms
+		finalSwitch = control;
+		finalPlaystation = control;
+		finalXbox = control;
+		finalKeyboard = control;
+	}
+} else {
+	// Legacy mode - use individually specified controls
+	finalSwitch = switchControl || '';
+	finalPlaystation = playstation || '';
+	finalXbox = xbox || '';
+	finalKeyboard = keyboard || '';
+}
+---
+
+<control-display
+	data-switch={finalSwitch}
+	data-playstation={finalPlaystation}
+	data-xbox={finalXbox}
+	data-keyboard={finalKeyboard}
+>
+	{label && <span class="control-label">{label}</span>}
+	<kbd class="control-key" data-control-display>
+		{finalSwitch || finalPlaystation || finalXbox || finalKeyboard || 'N/A'}
+	</kbd>
+</control-display>
+
+<script>
+	class ControlDisplay extends HTMLElement {
+		private controlElement: HTMLElement;
+		private currentScheme: string = 'switch';
+
+		constructor() {
+			super();
+			this.controlElement = this.querySelector('[data-control-display]') as HTMLElement;
+
+			// Listen for scheme changes
+			window.addEventListener('control-scheme-change', (e) => {
+				const event = e as CustomEvent;
+				this.currentScheme = event.detail.scheme;
+				this.updateDisplay();
+			});
+
+			// Request current scheme on mount
+			this.requestCurrentScheme();
+		}
+
+		updateDisplay() {
+			const controls = {
+				switch: this.dataset.switch,
+				playstation: this.dataset.playstation,
+				xbox: this.dataset.xbox,
+				keyboard: this.dataset.keyboard,
+			};
+
+			const displayValue = controls[this.currentScheme as keyof typeof controls] || 'N/A';
+			this.controlElement.textContent = displayValue;
+
+			// Update color scheme based on platform
+			this.controlElement.className = `control-key scheme-${this.currentScheme}`;
+		}
+
+		requestCurrentScheme() {
+			// Check localStorage for saved preference
+			const saved = localStorage.getItem('wiggler-control-scheme');
+			if (saved) {
+				this.currentScheme = saved;
+				this.updateDisplay();
+			}
+		}
+	}
+
+	customElements.define('control-display', ControlDisplay);
+</script>
+
+<style>
+	control-display {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.control-label {
+		font-weight: 500;
+		color: var(--sl-color-text);
+	}
+
+	.control-key {
+		display: inline-block;
+		padding: 0.25rem 0.6rem;
+		font-family: var(--sl-font-mono);
+		font-size: 0.9em;
+		font-weight: 600;
+		border-radius: 4px;
+		border: 1px solid;
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-gray-5);
+		transition: all 0.2s ease;
+		white-space: nowrap;
+	}
+
+	/* Platform-specific colors */
+	.scheme-switch {
+		border-color: #e60012;
+		background: linear-gradient(135deg, rgba(230, 0, 18, 0.1), rgba(230, 0, 18, 0.05));
+	}
+
+	.scheme-playstation {
+		border-color: #003087;
+		background: linear-gradient(135deg, rgba(0, 48, 135, 0.1), rgba(0, 48, 135, 0.05));
+	}
+
+	.scheme-xbox {
+		border-color: #107c10;
+		background: linear-gradient(135deg, rgba(16, 124, 16, 0.1), rgba(16, 124, 16, 0.05));
+	}
+
+	.scheme-keyboard {
+		border-color: var(--sl-color-accent);
+		background: linear-gradient(135deg, rgba(var(--sl-color-accent-low), 0.1), rgba(var(--sl-color-accent-low), 0.05));
+	}
+</style>
