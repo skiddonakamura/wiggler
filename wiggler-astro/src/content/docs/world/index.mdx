@@ -1,36 +1,9 @@
 ---
 title: Monster Hunter World
 description: Guides and resources for Monster Hunter World Iceborne
+tableOfContents: false
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import WeaponSelector from '../../../components/WeaponSelector.astro';
 
-# Monster Hunter World: Iceborne
-
-Welcome to the Monster Hunter World guide section. Explore the content below:
-
-<CardGrid>
-  <Card title="Guide" icon="swordsman">
-    Learn the fundamentals of each weapon type.
-
-    [Go to Guide →](/world/guide)
-  </Card>
-
-  <Card title="Progression" icon="rocket">
-    Track your progression through the game.
-
-    [Go to Progression →](/world/progression)
-  </Card>
-
-  <Card title="Endgame" icon="star">
-    Master endgame content and challenges.
-
-    [Go to Endgame →](/world/endgame)
-  </Card>
-
-  <Card title="Data" icon="pencil">
-    Additional tips, tricks, and notes.
-
-    [Go to Data →](/world/data)
-  </Card>
-</CardGrid>
+<WeaponSelector game="world" />
