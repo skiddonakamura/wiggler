@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { ImageMetadata } from 'astro:assets';
+import { Image } from 'astro:assets';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
+  title: string;
+  href: string;
+  img: ImageMetadata;
+}
+
+const { title, href, img, ...attributes } = Astro.props;
+---
+
+<div class="sl-link-card">
+  <a href={href} {...attributes}>
+    <Image
+      src={img}
+      alt={title}
+      format="webp"
+      loading="lazy"
+    />
+  </a>
+</div>
+
+<style>
+  .sl-link-card {
+    display: block;
+    border-radius: var(--sl-border-radius);
+    border: 1px solid var(--sl-color-gray-5);
+    background-color: var(--sl-color-black);
+    box-shadow: var(--sl-shadow-sm);
+    overflow: hidden;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .sl-link-card a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .sl-link-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .sl-link-card:hover {
+    background-color: var(--sl-color-gray-7, var(--sl-color-gray-6));
+    border-color: var(--sl-color-gray-2);
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+</style>

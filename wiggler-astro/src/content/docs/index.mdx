@@ -6,41 +6,14 @@ layout: ../../layouts/SplashLayout.astro
 
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-import DropdownCard from '../../components/DropdownCard.astro';
-import WildsLogo from '../../assets/wilds_logo.webp';
-import RiseLogo from '../../assets/rise_logo.webp';
-import WorldLogo from '../../assets/world_logo.webp';
+import { CardGrid } from '@astrojs/starlight/components';
+import LinkCard from '../../components/LinkCard.astro';
+import WildsLogo from '../../assets/games/wilds_logo.webp';
+import RiseLogo from '../../assets/games/rise_logo.webp';
+import WorldLogo from '../../assets/games/world_logo.webp';
 
-<CardGrid>
-	<DropdownCard>
-		<img slot="trigger" src={WildsLogo.src} alt="Wilds" style="width: 100%; border-radius: 8px; cursor: pointer;" />
-		<ul style="list-style: none; padding: 0; margin: 0;">
-			<li><a href="/guides/wilds/weapon-guides">Weapon Guides</a></li>
-			<li><a href="/guides/wilds/progression">Progression Guides</a></li>
-			<li><a href="/guides/wilds/endgame">Endgame Sets</a></li>
-			<li><a href="/guides/wilds/game-data">Game Data</a></li>
-		</ul>
-	</DropdownCard>
-	<DropdownCard>
-		<img slot="trigger" src={RiseLogo.src} alt="Sunbreak" style="width: 100%; border-radius: 8px; cursor: pointer;" />
-		<ul style="list-style: none; padding: 0; margin: 0;">
-			<li><a href="/guides/sunbreak/weapon-guides">Weapon Guides</a></li>
-			<li><a href="/guides/sunbreak/progression">Progression Guides</a></li>
-			<li><a href="/guides/sunbreak/endgame">Endgame Sets</a></li>
-			<li><a href="/guides/sunbreak/game-data">Game Data</a></li>
-		</ul>
-	</DropdownCard>
-	<DropdownCard>
-		<img slot="trigger" src={WorldLogo.src} alt="Iceborne" style="width: 100%; border-radius: 8px; cursor: pointer;" />
-		<ul style="list-style: none; padding: 0; margin: 0;">
-			<li><a href="/guides/world/weapon-guides">Weapon Guides</a></li>
-			<li><a href="/guides/world/progression">Progression Guides</a></li>
-			<li><a href="/guides/world/endgame">Endgame Sets</a></li>
-			<li><a href="/guides/world/game-data">Game Data</a></li>
-		</ul>
-	</DropdownCard>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
+<CardGrid stagger>
+	<LinkCard title="Monster Hunter Wilds" href="/wilds/" img={WildsLogo} />
+	<LinkCard title="Monster Hunter Rise: Sunbreak" href="/rise/" img={RiseLogo} />
+	<LinkCard title="Monster Hunter World: Iceborne" href="/world/" img={WorldLogo} />
 </CardGrid>
