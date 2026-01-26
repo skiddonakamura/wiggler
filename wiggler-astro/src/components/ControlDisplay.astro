@@ -23,6 +23,12 @@ let finalPlaystation: string;
 let finalXbox: string;
 let finalKeyboard: string;
 
+// Icon paths for each platform
+let iconSwitch: string | undefined;
+let iconPlaystation: string | undefined;
+let iconXbox: string | undefined;
+let iconKeyboard: string | undefined;
+
 if (control) {
 	const mapping = getControlMapping(control);
 	if (mapping) {
@@ -30,6 +36,14 @@ if (control) {
 		finalPlaystation = mapping.playstation;
 		finalXbox = mapping.xbox;
 		finalKeyboard = mapping.keyboard;
+
+		// Get icon paths from mapping
+		if (mapping.icons) {
+			iconSwitch = mapping.icons.switch;
+			iconPlaystation = mapping.icons.playstation;
+			iconXbox = mapping.icons.xbox;
+			iconKeyboard = mapping.icons.keyboard;
+		}
 	} else {
 		// Fallback if mapping not found - use the control value for all platforms
 		finalSwitch = control;
@@ -51,10 +65,14 @@ if (control) {
 	data-playstation={finalPlaystation}
 	data-xbox={finalXbox}
 	data-keyboard={finalKeyboard}
+	data-icon-switch={iconSwitch}
+	data-icon-playstation={iconPlaystation}
+	data-icon-xbox={iconXbox}
+	data-icon-keyboard={iconKeyboard}
 >
 	{label && <span class="control-label">{label}</span>}
 	<kbd class="control-key" data-control-display>
-		{finalSwitch || finalPlaystation || finalXbox || finalKeyboard || 'N/A'}
+		{iconSwitch ? <img src={iconSwitch} alt={finalSwitch} class="control-icon" /> : finalSwitch}
 	</kbd>
 </control-display>
 
@@ -86,8 +104,33 @@ if (control) {
 				keyboard: this.dataset.keyboard,
 			};
 
+			const iconPaths = {
+				switch: this.dataset.iconSwitch,
+				playstation: this.dataset.iconPlaystation,
+				xbox: this.dataset.iconXbox,
+				keyboard: this.dataset.iconKeyboard,
+			};
+
 			const displayValue = controls[this.currentScheme as keyof typeof controls] || 'N/A';
-			this.controlElement.textContent = displayValue;
+			const iconPath = iconPaths[this.currentScheme as keyof typeof iconPaths];
+
+			// Clear current content
+			this.controlElement.innerHTML = '';
+
+			// Display icon if available, otherwise text
+			if (iconPath) {
+				const img = document.createElement('img');
+				img.src = iconPath;
+				img.alt = displayValue;
+				img.className = 'control-icon';
+				img.style.height = '28px';
+				img.style.width = 'auto';
+				img.style.position = 'relative';
+				img.style.top = '0.625em';
+				this.controlElement.appendChild(img);
+			} else {
+				this.controlElement.textContent = displayValue;
+			}
 
 			// Update color scheme based on platform
 			this.controlElement.className = `control-key scheme-${this.currentScheme}`;
@@ -119,18 +162,28 @@ if (control) {
 	}
 
 	.control-key {
-		display: inline-block;
-		padding: 0.25rem 0.6rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.15rem 0.35rem;
 		font-family: var(--sl-font-mono);
-		font-size: 0.9em;
+		font-size: 1em;
 		font-weight: 600;
-		border-radius: 4px;
+		border-radius: 3px;
 		border: 1px solid;
 		background: var(--sl-color-gray-6);
 		color: var(--sl-color-white);
 		border-color: var(--sl-color-gray-5);
 		transition: all 0.2s ease;
 		white-space: nowrap;
+		line-height: 1;
+	}
+
+	.control-icon {
+		filter: brightness(1.1);
+		vertical-align: baseline;
+		position: relative;
+		top: .5em;
 	}
 
 	/* Platform-specific colors */
