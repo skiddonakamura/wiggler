@@ -12,10 +12,9 @@ interface Props {
 	playstation?: string; // Legacy support
 	xbox?: string; // Legacy support
 	keyboard?: string; // Legacy support
-	label?: string; // Optional label like "Jump:" or "Attack:"
 }
 
-const { control, switch: switchControl, playstation, xbox, keyboard, label } = Astro.props;
+const { control, switch: switchControl, playstation, xbox, keyboard } = Astro.props;
 
 // If 'control' prop is provided, use the mapping system
 let finalSwitch: string;
@@ -70,7 +69,6 @@ if (control) {
 	data-icon-xbox={iconXbox}
 	data-icon-keyboard={iconKeyboard}
 >
-	{label && <span class="control-label">{label}</span>}
 	<kbd class="control-key" data-control-display>
 		{iconSwitch ? <img src={iconSwitch} alt={finalSwitch} class="control-icon" /> : finalSwitch}
 	</kbd>
@@ -152,13 +150,8 @@ if (control) {
 <style>
 	control-display {
 		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.control-label {
-		font-weight: 500;
-		color: var(--sl-color-text);
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 
 	.control-key {
@@ -177,6 +170,7 @@ if (control) {
 		transition: all 0.2s ease;
 		white-space: nowrap;
 		line-height: 1;
+		vertical-align: middle;
 	}
 
 	.control-icon {
@@ -184,6 +178,7 @@ if (control) {
 		vertical-align: baseline;
 		position: relative;
 		top: .5em;
+		margin-bottom: 0;
 	}
 
 	/* Platform-specific colors */
