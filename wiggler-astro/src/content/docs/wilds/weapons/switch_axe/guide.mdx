@@ -1,0 +1,218 @@
+---
+title: "How to: Switch Axe - Wilds Edition" 
+description: "Switch Axe weapon guide for Monster Hunter Wilds"
+---
+
+import ControlSchemeSwitcher from '@components/ControlSchemeSwitcher.astro';
+import ControlDisplay from '@components/ControlDisplay.astro';
+import { YouTube } from 'astro-embed';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Badge } from '@astrojs/starlight/components';
+
+<ControlSchemeSwitcher />
+
+## A Word from the Author
+
+This guide was written by [Sasch](https://www.youtube.com/@iamsasch),  
+Feedback is very welcome either via DMs or in the Monster Hunter Gathering Hub’s Switch Axe Channel.  
+Remember to take your time. Don’t compare yourself to others, don’t let anyone tell you how you can and can’t enjoy the game you paid for.  
+This guide does not exist to push a meta onto you, merely to guide those who are a little lost on their way to achieve measurable greatness.
+
+## Introduction to the Weapon
+
+Despite being a ginormous Weapon, the Switch Axe has a rather short reach, with relatively low mobility for chasing or dodging monsters.  
+Despite this rather heavy nerf compared to previous iterations of the weapon, it can more than make up for it with the new changes and additions to the moveset:
+a frame 1 counter, several hyper armor moves, and a strong sword combo that allows for mid-combo repositioning.  
+Switch Axe as a weapon relies on tight positioning to perform at its best, and iframe hops and rolls in a pinch.  
+This Weapon is for you if you:
+
+- Have the patience to learn from mistakes,
+- want to improve as a player
+- enjoy optimizing your gameplay around mostly 1 or 2 moves,
+- enjoy big axes that are secretly just swords,
+- love EXPLOSIONS, but hate shields.
+
+## Inputs and Basics
+
+The following is a list of the most commonly used moves:
+
+### Basic Moves
+
+- **Axe - Fade Slash:** Backwards+<ControlDisplay control="X" /> after any move that ends in axe
+- **Axe - Forward Overhead Slash/Axe:** Forward Slash: Forward+<ControlDisplay control="X" />
+- **Axe - Overhead Slash:** <ControlDisplay control="X" />
+- **Axe - Wild Swing:** <ControlDisplay control="A" />
+- **Axe - Offset Rising Slash:** <ControlDisplay control="X" />+<ControlDisplay control="A" />
+- **Morph:** <ControlDisplay control="ZR" /> after any attack, sword→axe, axe→sword only if you have gauge
+- **Dodgemorph:** <ControlDisplay control="ZR" /> after any dodge
+- **Sword - Double Slash:** <ControlDisplay control="A" />
+- **Sword - Overhead Slash:** <ControlDisplay control="X" />
+- **Sword - Counter:** <ControlDisplay control="ZR" />+<ControlDisplay control="X" />
+- **Sword - Overhead Forward Morph:** Forward+<ControlDisplay control="ZR" />+<ControlDisplay control="A" />
+- **Drawmorph:** <ControlDisplay control="ZR" /> while sheathed
+- **Finishing/Zero Sum Discharge:** <ControlDisplay control="X" />+<ControlDisplay control="A" />, then <ControlDisplay control="X" /> repeatedly
+- **Sheathe:** <ControlDisplay control="Y" />
+- **Dodge:** <ControlDisplay control="B" />
+- **Focus Mode:** <ControlDisplay control="ZL" />
+- **Focus Strike (either mode):** <ControlDisplay control="ZL" />+<ControlDisplay control="R" /> on wound
+- **Slinger:** <ControlDisplay control="ZL" /> (hold/toggle) + <ControlDisplay control="ZR" /> (sheathed); Focus mode (<ControlDisplay control="ZL" />) + <ControlDisplay control="L3" /> (Weapon Drawn)
+
+### Important Combos
+
+- **Amp Combo (sword):** Double Slash → Heavenward <ControlDisplay control="A" /> → <ControlDisplay control="A" />
+- **Full Release Loop (sword):** Full Release Slash → Spiral Burst Slash → Rising Double Slash <ControlDisplay control="ZR" />+<ControlDisplay control="A" />+<ControlDisplay control="X" /> → <ControlDisplay control="X" /> → <ControlDisplay control="ZR" />
+- **Triple Slash Loop (sword):** Overhead Slash → Rising Slash → Rising Slash → Triple Slash <ControlDisplay control="X" /> → <ControlDisplay control="X" /> → <ControlDisplay control="X" /> → <ControlDisplay control="A" />
+- **Rising Slash Combo (sword):** Overhead Slash → Rising Slash → Rising Slash <ControlDisplay control="X" /> → <ControlDisplay control="X" /> → <ControlDisplay control="X" />
+- **ZSD (sword):** While amped: Hold <ControlDisplay control="X" />+<ControlDisplay control="A" />, then mash <ControlDisplay control="X" /> while attached
+- **Sword Gauge Combo (Axe):** Overhead Slash (axe) → Side Slash → Spiral Burst Slash <ControlDisplay control="X" /> → <ControlDisplay control="X" /> → <ControlDisplay control="X" />
+- **Wild Morph:** Wild Swing → Morph <ControlDisplay control="A" /> → <ControlDisplay control="A" /> → <ControlDisplay control="ZR" />
+
+You will learn more about the combos in [Section 5](#playstyles-moveset-and-utility). These are the Stats Switch Axe users should care about:
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe1.webp)
+*3.0A - Weapon Stats*
+
+**Attack:** Important for all Playstyles, universal damage, usually referred to as Raw. Wilds, for the first time ever, lets us choose between Bloat and True values, the option for that is in Game Settings -> Page 3: Weapon Attack Power Display -> Display Without Coefficent. This Guide will only care about True Values.
+
+**Sharpness:** Acts as a modifier for Raw and Elemental Damage. Being a High Rank Game, every set will want to have white sharpness throughout the overwhelming majority of any given hunt. Unlike other Weapon types, Switch Axe does not have built-in sharpness reduction modifiers, every input consumes 1 unit of Sharpness. Due to the changes to the Skill System, sharpness skills compete with Critical Boost, which means that they don’t compete, making Sharpness Management a Player Skill instead of an Armor Skill.
+
+| Sharpness | Raw Mod | Elemod |
+|-----------|---------|---------|
+| Purple | 1.39 | 1.25 |
+| White | 1.32 | 1.15 |
+| Blue | 1.2 | 1.0625 |
+| Green | 1.05 | 1 |
+| Yellow | 1 | 0.75 |
+| Orange | 0.75 | 0.5 |
+| Red | 0.5 | 0.25 |
+
+*Fig 3.0B - Sharpness Table*
+
+**Element:** Status and Element is listed here if applicable, depending on the specific set you aim for, all of these can be important, or they can not matter. Note that Raw and Element have different playstyles in Wilds.
+
+**Affinity:** Every important Move in Swaxe’s kit is able to crit, making it the singular strongest stat in the current state of the game.
+
+**Defense Bonus:** Due to the nature of the Defense stat's scaling, any additional defense is unlikely to have an impact on damage received, making it a negligible Bonus at best. Safe to ignore.
+
+**Slots:** All maxed out weapons have either 3-2-1 or 3-3-1 slots. The exceptions are Artian weapons, which have 2-2-2 on the Rarity 6 and 7, and 3-3-3 on the rarity 8 Versions, always.
+
+**Phial Type:** These dictate the bonuses you get from hitting things in Sword Mode. Power Phials give a 17% boost to Raw and take the longest to Amp, Element Phials amp faster and grant +45% to Element/Status. These two are usually recommended;
+
+Poison, Paralysis and Dragon phials give Poison, Paralysis Status and Dragon Element in Sword Mode, respectively. These are only worth using if the remaining stats on the Weapon blow everything else out of the water. This is not the case in Wilds. Exhaust Phials give Sword Attacks the ability to KO monsters by hitting their head, and drain their stamina, so that they enter their Exhausted state faster.
+
+## Mechanics
+
+Switch Axe revolves around two main mechanics: Amp and the Sword Gauge. Morphing into Sword, or attacking in Sword mode, consumes Sword Gauge, while Morphing into Axe, obtaining Amped State and hitting monsters in Axe mode generates Sword Gauge.
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe2.webp)
+*Fig. 4.0A - Sword Gauge, Power Axe Indicator*
+
+Hitting monsters in Sword Mode fills your Amp meter, which will glow bright red when completely filled.
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe3.webp)
+*Fig. 4.0B - Full Gauge(s)*
+
+Hitting a monster while Amped generates a small explosion, referred to as a Phial Tick. They attach to the hitzone the monster was hit at.
+
+Being amped also unlocks Zero Sum Discharge and, most importantly, Full Release Slash.
+
+Power Axe boosts your raw for Axe Attacks only, by 10 flat. Power Axe is activated after using Heavy Slam. While Axe is stronger than in previous games, it’s still significantly weaker than Sword, which is significantly weaker than Full Release.
+
+### Focus Mode/Strike
+
+Like all other weapons, we can enter Focus Mode with <ControlDisplay control="ZL" />, and press <ControlDisplay control="R" /> for a small hit. If it hits a wound as shown on the left, it unleashes a strong multi-hit attack. You can morph up to twice during this onslaught. If you end in Axe Mode, it finishes with a weaker Heavy Slam, which still grants Power Axe buff. Sword on the other hand ignores your gauge and forces you into sword, gives a reasonable amount of amp, deals about 50% more damage than axe, and ends on a discharge, which itself can be followed up by Full Release Slash.
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe4.webp)
+*Fig. 4.0C - Focus Strike Comparison*
+
+Another big addition was the Frenzy Mantle, which acts similar to Frontier’s Fencing+2 skill, in that it gives some Attacks a second, weaker, hit. For Swaxe, it applies those after the Light Attack Combos in either mode, so during the Spiral Burst Slash and, notably, the Rising Slash combos.
+Due to Mantle timers not resetting on either Quest End nor Quest Start, this will go largely ignored for the sake of this Guide, as it is likely to be relegated to Speedruns only. Sneak Attack
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe5.webp)
+*Fig. 4.0D - Sneak Attack*
+
+While a monster has not spotted you and is not engaged in combat and grounded, you can approach it and follow the button prompt (A) to use Sneak Attack, a reasonably strong attack that also grants the Power Axe Buff.
+
+## Playstyles, Moveset and Utility
+
+Switch Axe has one numerically superior playstyle, and 3 competitors for second place.
+
+Rising Slash is the de-facto move to Spam.
+
+Secondary options are, in order of strength on paper:
+
+Full Release Slash, Triple Slash and Long Morph Loop,
+
+All of which have slightly differing pros and cons.
+
+Corrupted Mantle behaves largely similar to how Frontier’s Fencing+2 Skill works, namely that it provides a second hit - on some attacks. For Swaxe, the affected moves are the light attacks, namely Overhead/Rising Slash Combo and the Spiral Burst combo. With Corrupted Mantle active, Rising Slash beats Full Release (on paper), even after mantle nerf.
+
+### Utility Morphs: Dodgemorph
+
+You can perform a Morph from either sword mode after any dodge. The distance this covers has been nerfed compared to previous iterations.
+
+### Utility: Counter
+
+Switch Axe gained a Counter in Sword Mode, which is active from Frame 1 and lasts roughly 1.5 seconds. Hitting this counter generates a lot of amp, and it can be followed up by Heavenward Slash. Note: Perfect Counters generate more Amp than standard ones. To proc perfect counter, use it just as you’re about to get it. Normal counters give the character a slight blue hue, while Perfect Counters have a notable visual effect:
+
+<YouTube id="dsoMJRQzdkU" />
+*Fig 5.0A - Counter: Amp Generation, Comparison Perfect vs Normal Counter*
+
+### Utility Morphs: 360° Morphs
+
+360° Morphs are useful for repositioning and re-angling yourself. After any Dodge, hold any direction and press morph; this works even outside of Focus Mode.
+
+<YouTube id="kUS90aHeNqA" />
+*Fig. 5.0B - 360° Morph Showcase*
+
+This can be used for simple repositioning, but also aggressively to sneak in a few extra hits.
+
+### Axemode: Fade Slash
+
+Holding Backwards and pressing <ControlDisplay control="A" /> is the input for the Fade Slash. It can be chained to any move that ends in axe mode, including (but not limited to):
+
+- Heavy Slam
+- All Sword → Axe morphs
+- Forward Slash
+- Forward Overhead Slash
+
+aswell as while being in Focus Mode while in Axe.
+
+Fade Slash is a fast repositioning tool that’s easy to combo into, enabling positional dodges in conjunction with forward Axe → Sword morphs or Forward Overhead Slash.
+
+### Zero Sum Discharge
+
+Using Elemental Discharge while Amped grants access to the Zero Sum Discharge, a very strong utility move that, similar to Rise/Sunbreak, will only end if the monster flies or digs to a different area, or you:
+
+- Get stunned
+- Get paralyzed/slept
+- Die
+- Manually abort it
+
+Much like World/Iceborne however, Swaxe lost its followup, meaning there is no way to cancel the long endlag. Unfortunately it’s utility is mostly moved to Full Release Slash, and whatever FRS doesn’t cover, Counter will. ZSD will have sped up starting animation if used after Double/Triple Slash or Heavenward Flurry.
+
+### Spiral Burst Slash Combo
+
+Spiral Burst Slash is the third hit of the “light” axe mode combo, aswell as a followup to several other moves, notably Full Release. Landing both hits generates a lot of sword gauge.
+
+![](https://wiggler.pet/wilds/guide/images/switch_axe6.webp)
+*Fig. 5.0C - Sword Gauge Regen*
+
+## Optimal Combos
+
+## Playerskill Benchmarks
+
+**Inexperienced:** Players who barely know the weapons moveset, having very little understanding of its mechanics and intricacies, having very little or no experience playing it at all.
+
+**Intermediate:** Players who have an understanding of the weapons moveset, can hit about half of their counters, and can clear quests reliably within 8-15 minutes.
+
+**Advanced:** Players who can target and hit parts at will, formulate and change their gameplan, hit most of their counters, have good spatial awareness and usually clear without carting within 6-8 minutes.
+
+**Expert:** Players who have good understanding of the moveset, nail nearly all of their counters, have great positioning and gauge/amp upkeep and usually clear any quest within 4-6 minutes. In addition, they have a good general grasp of most monster’s movesets.
+
+## Closing Thoughts
+Many high caliber players expressed concerns and questionable design choices with Wilds’ iteration of Switch Axe. While “new game bad, previous game better, hope next goes back to the roots” is a tale as old as time, the exorbitant centralization of a move like Full Release Slash is new.
+
+As a guide writer, I am happy at how quick and easy that makes it for me - As a Swaxe main and Runner, it takes away from the fun and skill expression quite a bit.
+
+That being said however, there is still a lot of room for experimentation and a large Toolkit for intentionally playing suboptimally, which may come in handy should Full Release get “adjusted downwards”.
