@@ -80,6 +80,9 @@ export default defineConfig({
 					items: generateGameSidebar('world'),
 				},
 			],
+			editLink: {
+				baseUrl: 'https://github.com/skiddonakamura/wiggler/edit/main/wiggler-astro/',
+			},
 		}),
 		mdx(),
 	],
