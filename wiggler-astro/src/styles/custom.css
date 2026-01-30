@@ -1,0 +1,36 @@
+/* Center images and their figure captions */
+img {
+	display: block;
+	margin-inline: auto;
+}
+
+/* Caption in the same paragraph as the image (no blank line between them) */
+p:has(> img) {
+	text-align: center;
+}
+
+/* Caption in a separate paragraph after the image (blank line between them) */
+p:has(> img) + p > em:only-child {
+	display: block;
+	text-align: center;
+}
+
+/* Center tables and their following captions */
+table {
+	width: fit-content;
+	margin-inline: auto;
+	text-align: center;
+}
+
+table + p > em:only-child {
+	display: block;
+	text-align: center;
+}
+
+/* Center captions after video embeds */
+/* The first embed on a page has a <script> injected after it, breaking the adjacent sibling selector */
+lite-youtube + p > em:only-child,
+lite-youtube + script + p > em:only-child {
+	display: block;
+	text-align: center;
+}
