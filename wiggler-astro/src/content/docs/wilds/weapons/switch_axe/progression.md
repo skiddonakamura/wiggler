@@ -1,12 +1,9 @@
 ---
 title: "Switch Axe - Progression"
 description: "Switch Axe progression sets for Monster Hunter Wilds"
-prev:
-  link: /wilds/
-  label: Monster Hunter Wilds
 ---
 
-![Switch Axe Progression](https://wiggler.pet/wilds/progression/sets/switch_axe_progression_intro.webp)
+![Switch Axe Progression](/wilds/progression/sets/switch_axe_progression_intro.webp)
 
 ## 1. When to use Progression Builds
 
@@ -24,7 +21,7 @@ Hope Axe II is upgradable from the moment you unlock upgrading, Gemma provides t
 
 One of the available Weapons early on is the Lala Barina Axe, which ends up having good stats in endgame. Power Phial is strictly preferred in this game, and sharpness is a major pain point, so having a solid bar of the highest available tier is really, really good.
 
-![Wilds Chapter 1 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe1.webp)
+![Wilds Chapter 1 Switch Axe Set](/wilds/progression/sets/switch_axe1.webp)
 
 Once you unlock the Doshaguma hunt, its set becomes available. The 4 Piece Set bonus it gives grants +25 Attack after a successful offset. If you're good with those, it's the first actual offensive Set available, but overall not worth the effort.
 
@@ -36,7 +33,7 @@ After the Rey hunt in early chapter 2, Hope Axe 3 becomes craftable as an upgrad
 
 As previously noted, the main purpose of this set is having more than 5 defense, so that Full Release and Counter are less likely to end with a cart. Evade Window 5 is nice, but ultimately doesn't do much if you're already Countering and Full Releasing (which you should be).
 
-![Wilds Chapter 2 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe2.webp)
+![Wilds Chapter 2 Switch Axe Set](/wilds/progression/sets/switch_axe2.webp)
 
 Nu Udra at the end of Chapter 2 is a contender too, equipping any 2 pieces with a total of at least 1 level of resentment grants some extra damage, sometimes, while resentment is active. As before, it is very optional to go for it.
 
@@ -51,7 +48,7 @@ Immediately after, Xu Wu is unlocked, which has one of the best craftable Swaxes
 
 A little bit later, Guardian Arkveld unlocks as one of the final hunts of the story. With it's helmet and chest, the previously started set can be rounded out nicely, resulting in a complete set recommendation.
 
-![Wilds Chapter 3 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe4.webp)
+![Wilds Chapter 3 Switch Axe Set](/wilds/progression/sets/switch_axe4.webp)
 
 ## 3. Early Post-Game Progression Guide
 
@@ -63,7 +60,7 @@ Rathalos comes with built-in Critical Boost 3, which is really nice for low Deco
 
 The resulting set will last you for pretty much the rest of the game.
 
-![Wilds Chapter 4 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe5.webp)
+![Wilds Chapter 4 Switch Axe Set](/wilds/progression/sets/switch_axe5.webp)
 
 From this point onward, the recommended way to progress is doing Side Quests. They unlock the "farms", some new systems like random villagers inviting you to dinner, the Power and Armor charm for some free Raw, aswell as some decoration melding options. After doing them, you should be well on your way to Hunter Rank 40, which is the next big monster unlock of the game.
 
@@ -77,7 +74,7 @@ The G. Los Set bonus really just exists and its impact (or lack thereof) will no
 
 Generally speaking, more affinity is wanted. One of the best skills for swaxe currently is Counter Strike, which is a 2-Slot skill and heavily recommended.
 
-![Wilds HR30 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe6.webp)
+![Wilds HR30 Switch Axe Set](/wilds/progression/sets/switch_axe6.webp)
 
 ### 4.2 HR 40+
 
@@ -87,6 +84,6 @@ The 2 piece Guardian Arkveld set makes for a very comfy base, as every wound pop
 
 Despite the nerfs to Crit, it's not only the best direction to build a set, it's also with even less competition, because most other skills are either nerfed or have nearly unmaintainable activation conditions.
 
-![Wilds HR40 Switch Axe Set](https://wiggler.pet/wilds/progression/sets/switch_axe7.webp)
+![Wilds HR40 Switch Axe Set](/wilds/progression/sets/switch_axe7.webp)
 
 From here, consider following the Endgame Guide via the Side Menu or the buttons on the bottom of the page.

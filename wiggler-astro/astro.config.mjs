@@ -65,6 +65,9 @@ export default defineConfig({
 			// Set English as the default language for this site.
 			defaultLocale: 'en',
 			pagination: false,
+			components: {
+				Pagination: './src/components/CustomPagination.astro',
+			},
 			customCss: ['./src/styles/custom.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [

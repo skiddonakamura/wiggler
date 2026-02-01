@@ -1,12 +1,9 @@
 ---
 title: "Switch Axe - Endgame Sets"
 description: "Switch Axe endgame sets for Monster Hunter Wilds"
-prev:
-  link: /wilds/
-  label: Monster Hunter Wilds
 ---
 
-![Switch Axe Endgame](https://wiggler.pet/wilds/endgame/sets/switch_axe_endgame_intro.webp)
+![Switch Axe Endgame](/wilds/endgame/sets/switch_axe_endgame_intro.webp)
 
 ## 1. A Word from the Author
 
@@ -107,7 +104,7 @@ Maximum two EX-tier reinforcements per category. Recommended rolls for Switch Ax
 
 ## 3. Matchup Chart
 
-![Switch Axe Matchup Chart](https://wiggler.pet/wilds/endgame/sets/switch_axe_matchup.webp)
+![Switch Axe Matchup Chart](/wilds/endgame/sets/switch_axe_matchup.webp)
 
 The matchup chart compares the Pinnacle (Power Phial) and Ele Phial sets across Monster Hunter Wilds monsters. Element and Raw have different playstyles — Element Phial builds should target elementally weak hitzones like glue, while Power Phial builds prioritize raw damage output through sustained Rising Slash loops.
 
@@ -129,7 +126,7 @@ HR100 is the minimum requirement, though full optimization requires additional g
 
 ### 4.2 The Pinnacle — Power Phial
 
-![The Pinnacle Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.2.webp)
+![The Pinnacle Set](/wilds/endgame/sets/switch_axe4.2.webp)
 
 **Primary Combo:** Rising Slash (RISING SLASH)
 
@@ -149,7 +146,7 @@ Requires matching elemental versions — five different weapons total, one per e
 
 ### 4.3 Ele Phial
 
-![Ele Phial Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.3.webp)
+![Ele Phial Set](/wilds/endgame/sets/switch_axe4.3.webp)
 
 **Primary Combo:** Triple Slash
 
@@ -169,7 +166,7 @@ Counterstrike juggling uses Offsets rather than pure counters, though this provi
 
 ### 4.4 Convert Element: Element Phial
 
-![Convert Element Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.4.webp)
+![Convert Element Set](/wilds/endgame/sets/switch_axe4.4.webp)
 
 **Primary Combo:** Triple Slash with Convert Element
 
@@ -187,7 +184,7 @@ This set exists only and exclusively for sake of completeness, not as a general 
 
 ### 4.5 Budget: Resentment Gore
 
-![Budget Resentment Gore Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.5.webp)
+![Budget Resentment Gore Set](/wilds/endgame/sets/switch_axe4.5.webp)
 
 **Primary Combo:** Rising Slash with Power Phial
 
@@ -209,7 +206,7 @@ Rising Slash remains the primary loop with Power Phials. The Resentment mechanic
 
 ### 4.6 Budget: Element Phial
 
-![Budget Element Phial Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.6.webp)
+![Budget Element Phial Set](/wilds/endgame/sets/switch_axe4.6.webp)
 
 **Primary Combo:** Triple Slash with Element Phial
 
@@ -229,7 +226,7 @@ Triple Slash application strategy mirrors the non-budget Element Phial set, with
 
 ### 4.7 Budget: E-Con Power Phial
 
-![Budget E-Con Power Phial Set](https://wiggler.pet/wilds/endgame/sets/switch_axe4.7.webp)
+![Budget E-Con Power Phial Set](/wilds/endgame/sets/switch_axe4.7.webp)
 
 **Primary Combo:** Rising Slash with Convert Element
 
@@ -254,7 +251,7 @@ This exists for sake of completeness with perfect conditions caveats. Power Phia
 
 ### 5.1 Budget: 4-Piece Gogmazios
 
-![4-Piece Gogmazios Set](https://wiggler.pet/wilds/endgame/sets/switch_axe5.1.webp)
+![4-Piece Gogmazios Set](/wilds/endgame/sets/switch_axe5.1.webp)
 
 Uses Element Phial with Gore Magala's Tyranny. Primary application involves tanking Omega by maintaining aggro on the face. Emphasizes Triple Slash targeting weak elemental hitzones, with Full Release as secondary option for burst scenarios.
 
@@ -262,7 +259,7 @@ Uses Element Phial with Gore Magala's Tyranny. Primary application involves tank
 
 ### 5.2 Budget: Ele Phial Wex
 
-![Ele Phial Wex Set](https://wiggler.pet/wilds/endgame/sets/switch_axe5.2.webp)
+![Ele Phial Wex Set](/wilds/endgame/sets/switch_axe5.2.webp)
 
 Element Phial setup designed for multiplayer where maintaining Latent Power becomes difficult. Weakness Exploit replaces Latent Power but performs worse on standard uptimes, even when hitting 45+ hitzones consistently.
 
@@ -274,7 +271,7 @@ Due to the extremely limited set building in this game, there is no meme build y
 
 ## 7. Title Update Changes
 
-![Title Update History](https://wiggler.pet/wilds/endgame/sets/switch_axe7.b.webp)
+![Title Update History](/wilds/endgame/sets/switch_axe7.b.webp)
 
 ### Title Update 4 (Latest)
 
