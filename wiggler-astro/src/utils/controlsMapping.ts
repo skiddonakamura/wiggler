@@ -26,10 +26,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'Y',
 		keyboard: 'Left Click',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_x_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_triangle_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_y_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_left_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_x_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_triangle_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_y_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_left_outline.svg`,
 		},
 	},
 	'Y': {
@@ -38,10 +38,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'X',
 		keyboard: 'E',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_y_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_square_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_x_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_e_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_y_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_square_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_x_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_e_outline.svg`,
 		},
 	},
 	'A': {
@@ -50,10 +50,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'A',
 		keyboard: 'Space',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_a_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_cross_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_a_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_a_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_cross_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_a_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_outline.svg`,
 		},
 	},
 	'B': {
@@ -62,10 +62,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'B',
 		keyboard: 'Right Click',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_b_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_circle_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_b_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_right_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_b_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_circle_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_b_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_right_outline.svg`,
 		},
 	},
 
@@ -76,10 +76,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'RT',
 		keyboard: 'Mouse 3',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_zr_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r2_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_rt_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_scroll_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_zr_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r2_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_rt_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_scroll_outline.svg`,
 		},
 	},
 	'ZL': {
@@ -88,10 +88,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'LT',
 		keyboard: 'Shift',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_zl_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_l2_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_lt_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_shift_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_zl_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_l2_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_lt_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_shift_outline.svg`,
 		},
 	},
 	'R': {
@@ -100,10 +100,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'RB',
 		keyboard: 'Q',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_r_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r1_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_rb_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_q_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_r_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r1_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_rb_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_q_outline.svg`,
 		},
 	},
 	'L': {
@@ -112,10 +112,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'LB',
 		keyboard: 'Ctrl',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_l_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_l1_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_lb_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_ctrl_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_l_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_l1_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_lb_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_ctrl_outline.svg`,
 		},
 	},
 
@@ -126,10 +126,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'D-Pad Up',
 		keyboard: 'Up Arrow',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_dpad_up_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_up_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_up_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_up_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_dpad_up_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_up_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_up_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_up_outline.svg`,
 		},
 	},
 	'D-Pad Down': {
@@ -138,10 +138,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'D-Pad Down',
 		keyboard: 'Down Arrow',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_dpad_down_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_down_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_down_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_down_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_dpad_down_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_down_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_down_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_down_outline.svg`,
 		},
 	},
 	'D-Pad Left': {
@@ -150,10 +150,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'D-Pad Left',
 		keyboard: 'Left Arrow',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_dpad_left_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_left_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_left_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_left_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_dpad_left_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_left_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_left_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_left_outline.svg`,
 		},
 	},
 	'D-Pad Right': {
@@ -162,10 +162,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'D-Pad Right',
 		keyboard: 'Right Arrow',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_dpad_right_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_right_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_right_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_right_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_dpad_right_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_dpad_right_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_dpad_right_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_arrow_right_outline.svg`,
 		},
 	},
 
@@ -188,10 +188,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'LS',
 		keyboard: 'C',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_l_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_l3_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_ls_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_c_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_l_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_l3_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_ls_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_c_outline.svg`,
 		},
 	},
 	'R3': {
@@ -200,10 +200,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'RS',
 		keyboard: 'V',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_r_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_r3_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_rs_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_v_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_r_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_r3_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_rs_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_v_outline.svg`,
 		},
 	},
 
@@ -234,10 +234,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'Menu',
 		keyboard: 'Esc',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_plus_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation4_button_options_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_menu_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_escape_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_plus_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation4_button_options_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_menu_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_escape_outline.svg`,
 		},
 	},
 	'Minus': {
@@ -246,10 +246,10 @@ export const controlsMap: Record<string, ControlMapping> = {
 		xbox: 'View',
 		keyboard: 'Tab',
 		icons: {
-			switch: `${BASE_PATH}/switch/outline/switch_button_minus_outline.webp`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation4_button_share_outline.webp`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_view_outline.webp`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_tab_outline.webp`,
+			switch: `${BASE_PATH}/switch/outline/switch_button_minus_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation4_button_share_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_view_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_tab_outline.svg`,
 		},
 	},
 };
