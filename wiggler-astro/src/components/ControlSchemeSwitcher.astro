@@ -1,7 +1,12 @@
 ---
-// Control Scheme Switcher Component
-// Allows users to select their preferred control scheme (Switch, PlayStation, Xbox, or Mouse & Keyboard)
-// Stores preference in localStorage and dispatches events for other components to react
+import { controlSchemes } from '../utils/controlSchemes';
+
+const controlSchemeLabels = {
+	switch: 'Nintendo Switch',
+	playstation: 'PlayStation',
+	xbox: 'Xbox',
+	keyboard: 'Mouse & Keyboard',
+} as const;
 ---
 
 <control-scheme-switcher>
@@ -9,58 +14,49 @@
 		Select Input:
 	</label>
 	<select id="control-scheme-select" class="scheme-select">
-		<option value="switch">Nintendo Switch</option>
-		<option value="playstation">PlayStation</option>
-		<option value="xbox">Xbox</option>
-		<option value="keyboard">Mouse & Keyboard</option>
+		{controlSchemes.map((scheme) => (
+			<option value={scheme}>{controlSchemeLabels[scheme]}</option>
+		))}
 	</select>
 </control-scheme-switcher>
 
 <script>
+	import {
+		CONTROL_SCHEME_STORAGE_KEY,
+		type ControlScheme,
+		dispatchControlSchemeChange,
+		getStoredControlScheme,
+	} from '../utils/controlSchemes';
+
 	class ControlSchemeSwitcher extends HTMLElement {
-		private select: HTMLSelectElement;
-		private readonly STORAGE_KEY = 'wiggler-control-scheme';
+		private readonly select: HTMLSelectElement | null = null;
+		private readonly handleChange = () => {
+			if (!this.select) {
+				return;
+			}
+
+			const scheme = this.select.value as ControlScheme;
+			localStorage.setItem(CONTROL_SCHEME_STORAGE_KEY, scheme);
+			dispatchControlSchemeChange(scheme);
+		};
 
 		constructor() {
 			super();
-			this.select = this.querySelector('#control-scheme-select') as HTMLSelectElement;
-
-			// Load saved preference
-			this.loadPreference();
-
-			// Listen for changes
-			this.select.addEventListener('change', () => this.handleChange());
+			this.select = this.querySelector('#control-scheme-select');
 		}
 
-		loadPreference() {
-			const saved = localStorage.getItem(this.STORAGE_KEY);
-			if (saved && this.isValidScheme(saved)) {
-				this.select.value = saved;
-				this.dispatchSchemeChange(saved);
-			} else {
-				// Default to Switch
-				this.select.value = 'switch';
-				this.dispatchSchemeChange('switch');
+		connectedCallback() {
+			if (!this.select) {
+				return;
 			}
+
+			this.select.value = getStoredControlScheme();
+			this.select.addEventListener('change', this.handleChange);
+			this.handleChange();
 		}
 
-		handleChange() {
-			const scheme = this.select.value;
-			localStorage.setItem(this.STORAGE_KEY, scheme);
-			this.dispatchSchemeChange(scheme);
-		}
-
-		dispatchSchemeChange(scheme: string) {
-			// Dispatch custom event that other components can listen to
-			const event = new CustomEvent('control-scheme-change', {
-				detail: { scheme },
-				bubbles: true,
-			});
-			window.dispatchEvent(event);
-		}
-
-		isValidScheme(scheme: string): boolean {
-			return ['switch', 'playstation', 'xbox', 'keyboard'].includes(scheme);
+		disconnectedCallback() {
+			this.select?.removeEventListener('change', this.handleChange);
 		}
 	}
 

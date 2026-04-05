@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import { weaponConfigs, weaponSlugs } from './siteConfig';
 
 // Import all weapon icons
 import bowIcon from '../assets/weapons/bow.webp';
@@ -38,24 +39,6 @@ export interface WeaponData {
 	};
 }
 
-// Weapon slug to display name mapping
-export const weaponDisplayNames: Record<string, string> = {
-	bow: 'Bow',
-	charge_blade: 'Charge Blade',
-	dual_blades: 'Dual Blades',
-	greatsword: 'Greatsword',
-	gunlance: 'Gunlance',
-	hammer: 'Hammer',
-	heavy_bowgun: 'Heavy Bowgun',
-	hunting_horn: 'Hunting Horn',
-	insect_glaive: 'Insect Glaive',
-	lance: 'Lance',
-	light_bowgun: 'Light Bowgun',
-	longsword: 'Longsword',
-	switch_axe: 'Switch Axe',
-	sword_and_shield: 'Sword and Shield',
-};
-
 // Weapon slug to icon mapping
 export const weaponIcons: Record<string, ImageMetadata> = {
 	bow: bowIcon,
@@ -74,24 +57,6 @@ export const weaponIcons: Record<string, ImageMetadata> = {
 	sword_and_shield: swordAndShieldIcon,
 };
 
-// All weapon slugs in order
-export const weaponSlugs = [
-	'greatsword',
-	'longsword',
-	'sword_and_shield',
-	'dual_blades',
-	'hammer',
-	'hunting_horn',
-	'lance',
-	'gunlance',
-	'switch_axe',
-	'charge_blade',
-	'insect_glaive',
-	'light_bowgun',
-	'heavy_bowgun',
-	'bow',
-];
-
 /**
  * Process weapon content from Astro.glob results
  * @param content Array of markdown files from Astro.glob
@@ -101,10 +66,10 @@ export function processWeaponData(content: WeaponContent[]): WeaponData[] {
 	const weaponMap = new Map<string, WeaponData>();
 
 	// Initialize all weapons
-	weaponSlugs.forEach((slug) => {
+	weaponConfigs.forEach(({ slug, label }) => {
 		weaponMap.set(slug, {
 			name: slug,
-			displayName: weaponDisplayNames[slug] || slug,
+			displayName: label,
 			icon: weaponIcons[slug],
 			sections: {
 				guide: null,
@@ -122,7 +87,7 @@ export function processWeaponData(content: WeaponContent[]): WeaponData[] {
 		const pathParts = item.file.split('/');
 		const weaponName = pathParts[pathParts.length - 2]; // bow
 		const sectionFile = pathParts[pathParts.length - 1]; // guide.md
-		const sectionName = sectionFile.replace('.md', '') as keyof WeaponData['sections'];
+		const sectionName = sectionFile.replace(/\.mdx?$/, '') as keyof WeaponData['sections'];
 
 		const weapon = weaponMap.get(weaponName);
 		if (weapon && (sectionName === 'guide' || sectionName === 'progression' || sectionName === 'endgame' || sectionName === 'data')) {

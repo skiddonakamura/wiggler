@@ -1,12 +1,5 @@
 ---
-// Custom pagination for weapon pages
-// Shows cross-links between guide, progression, and endgame sections
-
-const currentPath = Astro.url.pathname.replace(/\/$/, '');
-
-const weaponPageMatch = currentPath.match(
-	/^\/(\w+)\/weapons\/([\w_]+)\/(guide|progression|endgame|data)$/
-);
+import { paginationSectionConfigs, parseWeaponPagePath } from '../utils/siteConfig';
 
 interface PaginationLink {
 	label: string;
@@ -14,21 +7,14 @@ interface PaginationLink {
 }
 
 let links: PaginationLink[] = [];
+const weaponPage = parseWeaponPagePath(Astro.url.pathname);
 
-if (weaponPageMatch) {
-	const [, game, weapon, currentSection] = weaponPageMatch;
-
-	const sectionConfig = [
-		{ slug: 'guide', label: 'Guide' },
-		{ slug: 'progression', label: 'Progression' },
-		{ slug: 'endgame', label: 'Endgame Sets' },
-	];
-
-	links = sectionConfig
-		.filter((s) => s.slug !== currentSection)
+if (weaponPage) {
+	links = paginationSectionConfigs
+		.filter((section) => section.slug !== weaponPage.section)
 		.map((s) => ({
 			label: s.label,
-			href: `/${game}/weapons/${weapon}/${s.slug}/`,
+			href: `/${weaponPage.game}/weapons/${weaponPage.weapon}/${s.slug}/`,
 		}));
 }
 ---

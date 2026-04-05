@@ -53,7 +53,7 @@ export const controlsMap: Record<string, ControlMapping> = {
 			switch: `${BASE_PATH}/switch/outline/switch_button_a_outline.svg`,
 			playstation: `${BASE_PATH}/playstation/outline/playstation_button_cross_outline.svg`,
 			xbox: `${BASE_PATH}/xbox/outline/xbox_button_a_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_icon_outline.svg`,
 		},
 	},
 	'B': {

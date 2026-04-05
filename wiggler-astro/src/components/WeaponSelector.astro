@@ -3,34 +3,31 @@ import { Image } from 'astro:assets';
 import { Card } from '@astrojs/starlight/components';
 import { processWeaponData } from '../utils/weapons';
 import type { WeaponContent } from '../utils/weapons';
+import { sectionConfigs, type GameSlug } from '../utils/siteConfig';
 
 interface Props {
-	game: 'wilds' | 'rise' | 'world';
+	game: GameSlug;
 }
 
 const { game } = Astro.props;
 
-// Load all weapon content for this game
-// Astro.glob doesn't support template literals, so we need to use conditional loading
-let allContent: WeaponContent[];
-if (game === 'wilds') {
-	allContent = await Astro.glob<WeaponContent>('../content/docs/wilds/weapons/*/*.md');
-} else if (game === 'rise') {
-	allContent = await Astro.glob<WeaponContent>('../content/docs/rise/weapons/*/*.md');
-} else {
-	allContent = await Astro.glob<WeaponContent>('../content/docs/world/weapons/*/*.md');
-}
+const weaponContentModules = {
+	wilds: import.meta.glob('../content/docs/wilds/weapons/*/*.{md,mdx}', { eager: true }),
+	rise: import.meta.glob('../content/docs/rise/weapons/*/*.{md,mdx}', { eager: true }),
+	world: import.meta.glob('../content/docs/world/weapons/*/*.{md,mdx}', { eager: true }),
+} satisfies Record<GameSlug, Record<string, WeaponContent>>;
+
+const allContent = Object.values(weaponContentModules[game]);
 
 // Process into structured weapon data
 const weapons = processWeaponData(allContent);
 
-// Section metadata
-const sections = [
-	{ key: 'guide', label: 'Guide', icon: 'open-book' as const },
-	{ key: 'progression', label: 'Progression', icon: 'rocket' as const },
-	{ key: 'endgame', label: 'Endgame Sets', icon: 'star' as const },
-	{ key: 'data', label: 'Game Data', icon: 'information' as const },
-];
+const sectionIcons = {
+	guide: 'open-book',
+	progression: 'rocket',
+	endgame: 'star',
+	data: 'information',
+} as const;
 ---
 
 <weapon-selector>
@@ -61,14 +58,14 @@ const sections = [
 			>
 				<h2 class="weapon-title">{weapon.displayName}</h2>
 				<div class="section-cards">
-					{sections.map(({ key, label, icon }) => (
+					{sectionConfigs.map((section) => (
 						<a
-							href={`/${game}/weapons/${weapon.name}/${key}/`}
+							href={`/${game}/weapons/${weapon.name}/${section.slug}/`}
 							class="card-link"
 						>
 							<Card
-								title={label}
-								icon={icon}
+								title={section.label}
+								icon={sectionIcons[section.slug]}
 							/>
 						</a>
 					))}
