@@ -1,3 +1,121 @@
+@import 'katex/dist/katex.min.css';
+
+:root {
+	--sl-color-accent-low: #213c39;
+	--sl-color-accent: #8fd1bd;
+	--sl-color-accent-high: #d6fff1;
+	--sl-color-white: #f5f3ed;
+	--sl-color-gray-1: #ebe8df;
+	--sl-color-gray-2: #c2c0b8;
+	--sl-color-gray-3: #98978f;
+	--sl-color-gray-4: #686963;
+	--sl-color-gray-5: #3e403d;
+	--sl-color-gray-6: #272a28;
+	--sl-color-black: #151715;
+	--sl-font: 'Didact Gothic', ui-sans-serif, system-ui, sans-serif;
+}
+
+@font-face {
+	font-display: swap;
+	font-family: 'Didact Gothic';
+	src: url('/fonts/didact-gothic.woff2') format('woff2');
+}
+
+main {
+	line-height: 1.65;
+}
+
+main :is(h2, h3, h4) {
+	scroll-margin-top: 5rem;
+}
+
+main h2 {
+	border-top: 1px solid var(--sl-color-gray-5);
+	margin-top: 3.25rem;
+	padding-top: 1.25rem;
+}
+
+/* The scheme picker already separates itself from the first section. */
+.sl-markdown-content > control-scheme-switcher ~ h2:first-of-type {
+	border-top: 0;
+	margin-top: 0;
+	padding-top: 1.25rem;
+}
+
+main details {
+	background: var(--sl-color-gray-6);
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: .55rem;
+	margin: 1.25rem 0;
+	padding: .75rem 1rem;
+}
+
+main details summary {
+	cursor: pointer;
+	font-weight: 700;
+}
+
+/* Text-first control labels: all schemes are rendered in HTML so switching works
+   without JavaScript or icon requests. The selected value is exposed visually. */
+.control-display {
+	display: inline;
+	white-space: nowrap;
+}
+
+.control-key {
+	background: transparent;
+	border: 0;
+	color: var(--sl-color-white);
+	display: none;
+	font-family: var(--sl-font-mono);
+	font-size: inherit;
+	font-weight: 600;
+	line-height: inherit;
+	padding: 0;
+	vertical-align: baseline;
+	white-space: nowrap;
+}
+
+.control-icon {
+	display: inline-block;
+	height: 1.9em;
+	margin: 0;
+	max-inline-size: none;
+	vertical-align: -.5em;
+	width: auto;
+}
+
+.control-key--switch,
+.control-key--active {
+	display: inline;
+}
+
+:root[data-control-scheme='playstation'] .control-key:not(.control-key--active),
+:root[data-control-scheme='xbox'] .control-key:not(.control-key--active),
+:root[data-control-scheme='keyboard'] .control-key:not(.control-key--active) {
+	display: none;
+}
+
+:root[data-control-scheme='playstation'] .control-key--playstation:not(.control-key--active),
+:root[data-control-scheme='xbox'] .control-key--xbox:not(.control-key--active),
+:root[data-control-scheme='keyboard'] .control-key--keyboard:not(.control-key--active) {
+	display: inline;
+}
+
+@supports selector(body:has(input:checked)) {
+	body:has(#control-scheme-playstation:checked) .control-key:not(.control-key--active),
+	body:has(#control-scheme-xbox:checked) .control-key:not(.control-key--active),
+	body:has(#control-scheme-keyboard:checked) .control-key:not(.control-key--active) {
+		display: none;
+	}
+
+	body:has(#control-scheme-playstation:checked) .control-key--playstation:not(.control-key--active),
+	body:has(#control-scheme-xbox:checked) .control-key--xbox:not(.control-key--active),
+	body:has(#control-scheme-keyboard:checked) .control-key--keyboard:not(.control-key--active) {
+		display: inline;
+	}
+}
+
 /* Center images and their figure captions */
 img {
 	display: block;

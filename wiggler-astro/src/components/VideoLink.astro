@@ -1,0 +1,24 @@
+---
+interface Props {
+	title: string;
+	href: string;
+	description: string;
+}
+
+const { title, href, description } = Astro.props;
+---
+
+<aside class="video-link">
+	<span aria-hidden="true">▶</span>
+	<div><strong>{title}</strong><p>{description}</p></div>
+	<a href={href} target="_blank" rel="noreferrer">Watch video <span aria-hidden="true">↗</span></a>
+</aside>
+
+<style>
+	.video-link { align-items: center; background: var(--sl-color-gray-6); border-radius: .65rem; display: flex; gap: 1rem; margin: 1.4rem 0; padding: 1rem; }
+	.video-link > span { align-items: center; background: var(--sl-color-accent); border-radius: 50%; color: var(--sl-color-black); display: flex; flex: 0 0 2.2rem; height: 2.2rem; justify-content: center; }
+	.video-link div { flex: 1; }
+	.video-link p { color: var(--sl-color-gray-3); font-size: .9rem; margin: .15rem 0 0; }
+	.video-link a { font-size: .9rem; font-weight: 700; white-space: nowrap; }
+	@media (max-width: 32rem) { .video-link { align-items: start; flex-wrap: wrap; } .video-link a { margin-left: 3.2rem; } }
+</style>

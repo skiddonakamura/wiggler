@@ -20,70 +20,19 @@ const controlValues = {
 	xbox: mapping?.xbox ?? fallbackControl,
 	keyboard: mapping?.keyboard ?? fallbackControl,
 };
-
-const iconPaths = {
-	switch: mapping?.icons?.switch,
-	playstation: mapping?.icons?.playstation,
-	xbox: mapping?.icons?.xbox,
-	keyboard: mapping?.icons?.keyboard,
-};
-
-function getIconClass(iconPath?: string) {
-	if (!iconPath) {
-		return undefined;
-	}
-
-	if (iconPath.includes('/mouse_')) {
-		return 'control-icon--mouse';
-	}
-
-	if (iconPath.includes('/keyboard_')) {
-		return 'control-icon--keyboard';
-	}
-
-	if (
-		iconPath.includes('_trigger_') ||
-		iconPath.includes('_lt_') ||
-		iconPath.includes('_rt_') ||
-		iconPath.includes('_lb_') ||
-		iconPath.includes('_rb_') ||
-		iconPath.includes('_zl_') ||
-		iconPath.includes('_zr_')
-	) {
-		return 'control-icon--controller-shoulder';
-	}
-
-	return 'control-icon--controller-face';
-}
-
-const iconClasses = {
-	switch: getIconClass(iconPaths.switch),
-	playstation: getIconClass(iconPaths.playstation),
-	xbox: getIconClass(iconPaths.xbox),
-	keyboard: getIconClass(iconPaths.keyboard),
-};
+const defaultIconPath = mapping?.icons?.switch;
 ---
 
 <control-display
-	data-switch={controlValues.switch}
-	data-playstation={controlValues.playstation}
-	data-xbox={controlValues.xbox}
-	data-keyboard={controlValues.keyboard}
-	data-icon-switch={iconPaths.switch}
-	data-icon-playstation={iconPaths.playstation}
-	data-icon-xbox={iconPaths.xbox}
-	data-icon-keyboard={iconPaths.keyboard}
-	data-icon-class-switch={iconClasses.switch}
-	data-icon-class-playstation={iconClasses.playstation}
-	data-icon-class-xbox={iconClasses.xbox}
-	data-icon-class-keyboard={iconClasses.keyboard}
->
-	<kbd class="control-key" data-control-display>
-		{iconPaths.switch ? <img src={iconPaths.switch} alt={controlValues.switch} class="control-icon" /> : controlValues.switch}
-	</kbd>
-</control-display>
+	class="control-display"
+	data-control={control}
+	data-game={game}
+	data-action={action}
+><kbd class="control-key control-key--switch">{defaultIconPath ? <img src={defaultIconPath} alt={controlValues.switch} class="control-icon" /> : controlValues.switch}</kbd><kbd class="control-key control-key--playstation">{controlValues.playstation}</kbd><kbd class="control-key control-key--xbox">{controlValues.xbox}</kbd><kbd class="control-key control-key--keyboard">{controlValues.keyboard}</kbd></control-display>
 
 <script>
+	import { getGameControlMapping } from '../utils/gameControls';
+	import { getControlMapping } from '../utils/controlsMapping';
 	import {
 		CONTROL_SCHEME_EVENT,
 		type ControlScheme,
@@ -91,123 +40,64 @@ const iconClasses = {
 		isControlScheme,
 	} from '../utils/controlSchemes';
 
-	class ControlDisplay extends HTMLElement {
-		private readonly controlElement: HTMLElement | null = null;
-		private currentScheme: ControlScheme = 'switch';
-		private readonly handleSchemeChange = (event: Event) => {
-			const { detail } = event as CustomEvent<{ scheme?: string }>;
-			if (detail?.scheme && isControlScheme(detail.scheme)) {
-				this.currentScheme = detail.scheme;
-				this.updateDisplay();
-			}
-		};
-
-		constructor() {
-			super();
-			this.controlElement = this.querySelector('[data-control-display]');
-		}
-
-		connectedCallback() {
-			this.currentScheme = getStoredControlScheme();
-			window.addEventListener(CONTROL_SCHEME_EVENT, this.handleSchemeChange);
-			this.updateDisplay();
-		}
-
-		disconnectedCallback() {
-			window.removeEventListener(CONTROL_SCHEME_EVENT, this.handleSchemeChange);
-		}
-
-		updateDisplay() {
-			if (!this.controlElement) {
-				return;
-			}
-
-			const displayValue = this.dataset[this.currentScheme] ?? 'N/A';
-			const iconPathByScheme = {
-				switch: this.dataset.iconSwitch,
-				playstation: this.dataset.iconPlaystation,
-				xbox: this.dataset.iconXbox,
-				keyboard: this.dataset.iconKeyboard,
-			};
-			const iconClassByScheme = {
-				switch: this.dataset.iconClassSwitch,
-				playstation: this.dataset.iconClassPlaystation,
-				xbox: this.dataset.iconClassXbox,
-				keyboard: this.dataset.iconClassKeyboard,
-			};
-			const iconPath = iconPathByScheme[this.currentScheme];
-			const iconClass = iconClassByScheme[this.currentScheme] ?? 'control-icon--controller-face';
-
-			this.controlElement.replaceChildren();
-
-			if (iconPath) {
-				const img = document.createElement('img');
-				img.src = iconPath;
-				img.alt = displayValue;
-				img.className = `control-icon ${iconClass}`;
-				this.controlElement.append(img);
-				this.controlElement.className = 'control-key';
-			} else {
-				this.controlElement.textContent = displayValue;
-				this.controlElement.className = 'control-key';
-			}
-		}
+	function getMapping(display: HTMLElement) {
+		const { action, control, game } = display.dataset;
+		return (
+			(game && action ? getGameControlMapping(game, action) : undefined) ??
+			(control ? getControlMapping(control) : undefined)
+		);
 	}
 
-	customElements.define('control-display', ControlDisplay);
+	function getFallbackValue(display: HTMLElement) {
+		return display.dataset.control ?? display.dataset.action ?? 'N/A';
+	}
+
+	function renderDisplay(display: HTMLElement, scheme: ControlScheme) {
+		const mapping = getMapping(display);
+		const value = mapping?.[scheme] ?? getFallbackValue(display);
+		const iconPath = mapping?.icons?.[scheme];
+		const renderToken = String(Number(display.dataset.renderToken ?? '0') + 1);
+		display.dataset.renderToken = renderToken;
+
+		if (!iconPath) {
+			const key = document.createElement('kbd');
+			key.className = 'control-key control-key--active';
+			key.textContent = value;
+			display.replaceChildren(key);
+			return;
+		}
+
+		const icon = new Image();
+		icon.alt = value;
+		icon.className = 'control-icon';
+		icon.decoding = 'async';
+		icon.addEventListener(
+			'load',
+			() => {
+				if (display.dataset.renderToken !== renderToken) return;
+
+				const key = document.createElement('kbd');
+				key.className = 'control-key control-key--active';
+				key.append(icon);
+				display.replaceChildren(key);
+			},
+			{ once: true },
+		);
+		icon.src = iconPath;
+	}
+
+	function renderDisplays(scheme: ControlScheme) {
+		document.querySelectorAll<HTMLElement>('.control-display').forEach((display) => {
+			renderDisplay(display, scheme);
+		});
+	}
+
+	renderDisplays(getStoredControlScheme());
+
+	window.addEventListener(CONTROL_SCHEME_EVENT, (event) => {
+		const { detail } = event as CustomEvent<{ scheme?: string }>;
+		if (detail?.scheme && isControlScheme(detail.scheme)) {
+			renderDisplays(detail.scheme);
+		}
+	});
 </script>
-
-<style>
-	control-display {
-		display: inline;
-	}
-
-	.control-key {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0;
-		font-family: var(--sl-font-mono);
-		font-size: inherit;
-		font-weight: 600;
-		white-space: nowrap;
-		line-height: 1;
-		vertical-align: middle;
-		background: none;
-		border: 0;
-		border-radius: 0;
-		color: inherit;
-		box-shadow: none;
-	}
-
-	:global(.control-icon) {
-		display: inline-block;
-		filter: brightness(1.1);
-		width: auto;
-		margin: 0 0.16em !important;
-		margin-inline: 0.16em !important;
-		vertical-align: middle;
-	}
-
-	:global(.control-icon--controller-face) {
-		height: 2em;
-		transform: translateY(-0.16em);
-	}
-
-	:global(.control-icon--controller-shoulder) {
-		height: 2em;
-		transform: translateY(-0.14em);
-	}
-
-	:global(.control-icon--mouse) {
-		height: 2em;
-		transform: translateY(-0.14em);
-	}
-
-	:global(.control-icon--keyboard) {
-		height: 3em;
-		margin: 0 0.44em !important;
-		margin-inline: 0.44em !important;
-		transform: translateY(-0.18em);
-	}
-</style>

@@ -10,14 +10,23 @@ const controlSchemeLabels = {
 ---
 
 <control-scheme-switcher>
-	<label for="control-scheme-select" class="scheme-label">
-		Select Input:
-	</label>
-	<select id="control-scheme-select" class="scheme-select">
-		{controlSchemes.map((scheme) => (
-			<option value={scheme}>{controlSchemeLabels[scheme]}</option>
-		))}
-	</select>
+	<fieldset class="scheme-fieldset">
+		<legend>Show inputs as</legend>
+		<div class="scheme-options">
+			{controlSchemes.map((scheme) => (
+				<span class="scheme-option">
+					<input
+						type="radio"
+						id={`control-scheme-${scheme}`}
+						name="control-scheme"
+						value={scheme}
+						checked={scheme === 'switch'}
+					/>
+					<label for={`control-scheme-${scheme}`}>{controlSchemeLabels[scheme]}</label>
+				</span>
+			))}
+		</div>
+	</fieldset>
 </control-scheme-switcher>
 
 <script>
@@ -26,88 +35,113 @@ const controlSchemeLabels = {
 		type ControlScheme,
 		dispatchControlSchemeChange,
 		getStoredControlScheme,
+		isControlScheme,
+		storeControlScheme,
 	} from '../utils/controlSchemes';
 
-	class ControlSchemeSwitcher extends HTMLElement {
-		private readonly select: HTMLSelectElement | null = null;
-		private readonly handleChange = () => {
-			if (!this.select) {
-				return;
-			}
+	const switcher = document.querySelector('control-scheme-switcher');
+	const inputs = Array.from(
+		switcher?.querySelectorAll<HTMLInputElement>('input[name="control-scheme"]') ?? [],
+	);
 
-			const scheme = this.select.value as ControlScheme;
-			localStorage.setItem(CONTROL_SCHEME_STORAGE_KEY, scheme);
-			dispatchControlSchemeChange(scheme);
-		};
+	function applyScheme(scheme: ControlScheme, persist = false) {
+		document.documentElement.dataset.controlScheme = scheme;
+		inputs.forEach((input) => {
+			input.checked = input.value === scheme;
+		});
 
-		constructor() {
-			super();
-			this.select = this.querySelector('#control-scheme-select');
+		if (persist) {
+			storeControlScheme(scheme);
 		}
 
-		connectedCallback() {
-			if (!this.select) {
-				return;
-			}
-
-			this.select.value = getStoredControlScheme();
-			this.select.addEventListener('change', this.handleChange);
-			this.handleChange();
-		}
-
-		disconnectedCallback() {
-			this.select?.removeEventListener('change', this.handleChange);
-		}
+		dispatchControlSchemeChange(scheme);
 	}
 
-	customElements.define('control-scheme-switcher', ControlSchemeSwitcher);
+	applyScheme(getStoredControlScheme());
+
+	switcher?.addEventListener('change', (event) => {
+		const input = event.target;
+		if (input instanceof HTMLInputElement && isControlScheme(input.value)) {
+			applyScheme(input.value, true);
+		}
+	});
+
+	window.addEventListener('storage', (event) => {
+		if (event.key === CONTROL_SCHEME_STORAGE_KEY && event.newValue && isControlScheme(event.newValue)) {
+			applyScheme(event.newValue);
+		}
+	});
 </script>
 
 <style>
 	control-scheme-switcher {
+		display: block;
+		border-bottom: 1px solid var(--sl-color-gray-5);
+		margin: 0 0 1.75rem;
+		padding: 0 0 1rem;
+	}
+
+	.scheme-fieldset {
+		border: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	legend {
+		color: var(--sl-color-gray-3);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.07em;
+		margin: 0 0 0.55rem;
+		padding: 0;
+		text-transform: uppercase;
+	}
+
+	.scheme-options {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.5rem;
-		width: fit-content;
-		margin: 0 auto 1.5rem auto;
-		padding: 1rem;
-		background: var(--sl-color-gray-6);
-		border: 1px solid var(--sl-color-gray-5);
-		border-radius: var(--sl-border-radius);
+		flex-wrap: wrap;
+		gap: 0.4rem;
 	}
 
-	.scheme-label {
-		font-weight: 600;
-		color: var(--sl-color-white);
-		font-size: 0.95rem;
+	.scheme-option {
+		position: relative;
 	}
 
-	.scheme-select {
-		padding: 0.5rem 0.75rem;
-		background: var(--sl-color-gray-5);
-		color: var(--sl-color-white);
+	.scheme-option input {
+		block-size: 1px;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		inline-size: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+	}
+
+	.scheme-option label {
 		border: 1px solid var(--sl-color-gray-4);
-		border-radius: calc(var(--sl-border-radius) - 2px);
-		font-size: 0.95rem;
+		border-radius: 999rem;
+		color: var(--sl-color-gray-2);
 		cursor: pointer;
-		transition: all 0.2s ease;
-		margin-top: 0.5rem;
+		display: block;
+		font-size: 0.9rem;
+		line-height: 1.2;
+		padding: 0.4rem 0.75rem;
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 	}
 
-	.scheme-select:hover {
-		background: var(--sl-color-gray-4);
+	.scheme-option label:hover {
 		border-color: var(--sl-color-accent);
+		color: var(--sl-color-white);
 	}
 
-	.scheme-select:focus {
+	.scheme-option input:checked + label {
+		background: var(--sl-color-accent-low);
+		border-color: var(--sl-color-accent);
+		color: var(--sl-color-accent-high);
+	}
+
+	.scheme-option input:focus-visible + label {
 		outline: 2px solid var(--sl-color-accent);
 		outline-offset: 2px;
-	}
-
-	@media (max-width: 640px) {
-		.scheme-select {
-			width: 100%;
-		}
 	}
 </style>
