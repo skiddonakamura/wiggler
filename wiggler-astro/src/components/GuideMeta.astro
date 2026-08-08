@@ -1,0 +1,32 @@
+---
+interface Props {
+	game: string;
+	weapon: string;
+	version: string;
+	updated: string;
+	audience: string[];
+	contributors: string[];
+}
+
+const { game, weapon, version, updated, audience, contributors } = Astro.props;
+---
+
+<header class="guide-meta">
+	<p class="eyebrow">{game} · {weapon}</p>
+	<p class="lede"><slot /></p>
+	<dl>
+		<div><dt>Guide version</dt><dd>{version}</dd></div>
+		<div><dt>Updated</dt><dd>{updated}</dd></div>
+		<div><dt>For</dt><dd>{audience.join(' · ')}</dd></div>
+		<div><dt>Maintained by</dt><dd>{contributors.join(', ')}</dd></div>
+	</dl>
+</header>
+
+<style>
+	.guide-meta { border-bottom: 1px solid var(--sl-color-gray-5); margin-bottom: 2.5rem; padding: 1rem 0 2rem; }
+	.eyebrow { color: var(--sl-color-text-accent); font-size: .8rem; font-weight: 700; letter-spacing: .11em; margin: 0; text-transform: uppercase; }
+	.lede { color: var(--sl-color-gray-2); font-size: 1.15rem; max-width: 45rem; }
+	dl { display: flex; flex-wrap: wrap; gap: 1.2rem 2.5rem; margin: 1.4rem 0 0; }
+	dt { color: var(--sl-color-gray-3); font-size: .75rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+	dd { margin: .2rem 0 0; }
+</style>

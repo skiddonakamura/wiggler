@@ -8,10 +8,10 @@ export interface ControlMapping {
 	xbox: string;
 	keyboard: string;
 	icons?: {
-		switch: string;
-		playstation: string;
-		xbox: string;
-		keyboard: string;
+		switch?: string;
+		playstation?: string;
+		xbox?: string;
+		keyboard?: string;
 	};
 }
 
@@ -24,7 +24,7 @@ export const controlsMap: Record<string, ControlMapping> = {
 		switch: 'X',
 		playstation: 'Triangle',
 		xbox: 'Y',
-		keyboard: 'Left Click',
+		keyboard: 'LMB',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_x_outline.svg`,
 			playstation: `${BASE_PATH}/playstation/outline/playstation_button_triangle_outline.svg`,
@@ -46,26 +46,26 @@ export const controlsMap: Record<string, ControlMapping> = {
 	},
 	'A': {
 		switch: 'A',
-		playstation: 'Cross',
-		xbox: 'A',
-		keyboard: 'Space',
+		playstation: 'Circle',
+		xbox: 'B',
+		keyboard: 'RMB',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_a_outline.svg`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_cross_outline.svg`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_a_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_icon_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_circle_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_b_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_right_outline.svg`,
 		},
 	},
 	'B': {
 		switch: 'B',
-		playstation: 'Circle',
-		xbox: 'B',
-		keyboard: 'Right Click',
+		playstation: 'Cross',
+		xbox: 'A',
+		keyboard: 'Spacebar',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_b_outline.svg`,
-			playstation: `${BASE_PATH}/playstation/outline/playstation_button_circle_outline.svg`,
-			xbox: `${BASE_PATH}/xbox/outline/xbox_button_b_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_right_outline.svg`,
+			playstation: `${BASE_PATH}/playstation/outline/playstation_button_cross_outline.svg`,
+			xbox: `${BASE_PATH}/xbox/outline/xbox_button_a_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_space_icon_outline.svg`,
 		},
 	},
 
@@ -74,36 +74,35 @@ export const controlsMap: Record<string, ControlMapping> = {
 		switch: 'ZR',
 		playstation: 'R2',
 		xbox: 'RT',
-		keyboard: 'Mouse 3',
+		keyboard: 'M5',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_zr_outline.svg`,
 			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r2_outline.svg`,
 			xbox: `${BASE_PATH}/xbox/outline/xbox_rt_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_scroll_outline.svg`,
 		},
 	},
 	'ZL': {
 		switch: 'ZL',
 		playstation: 'L2',
 		xbox: 'LT',
-		keyboard: 'Shift',
+		keyboard: 'M3',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_zl_outline.svg`,
 			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_l2_outline.svg`,
 			xbox: `${BASE_PATH}/xbox/outline/xbox_lt_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_shift_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/mouse_scroll_outline.svg`,
 		},
 	},
 	'R': {
 		switch: 'R',
 		playstation: 'R1',
 		xbox: 'RB',
-		keyboard: 'Q',
+		keyboard: 'LShift',
 		icons: {
 			switch: `${BASE_PATH}/switch/outline/switch_button_r_outline.svg`,
 			playstation: `${BASE_PATH}/playstation/outline/playstation_trigger_r1_outline.svg`,
 			xbox: `${BASE_PATH}/xbox/outline/xbox_rb_outline.svg`,
-			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_q_outline.svg`,
+			keyboard: `${BASE_PATH}/mouse_keyboard/outline/keyboard_shift_outline.svg`,
 		},
 	},
 	'L': {
@@ -210,21 +209,27 @@ export const controlsMap: Record<string, ControlMapping> = {
 	// Common combinations
 	'X+A': {
 		switch: 'X + A',
-		playstation: 'Triangle + Cross',
-		xbox: 'Y + A',
-		keyboard: 'Left Click + Space',
+		playstation: 'Triangle + Circle',
+		xbox: 'Y + B',
+		keyboard: 'LMB + RMB',
 	},
 	'Y+B': {
 		switch: 'Y + B',
-		playstation: 'Square + Circle',
-		xbox: 'X + B',
-		keyboard: 'E + Right Click',
+		playstation: 'Square + Cross',
+		xbox: 'X + A',
+		keyboard: 'E + Spacebar',
 	},
 	'ZL+ZR': {
 		switch: 'ZL + ZR',
 		playstation: 'L2 + R2',
 		xbox: 'LT + RT',
-		keyboard: 'Shift + Mouse 3',
+		keyboard: 'M3 + M5',
+	},
+	'Left Stick Press': {
+		switch: 'Left Stick Press',
+		playstation: 'Left Stick Press',
+		xbox: 'Left Stick Press',
+		keyboard: 'Left Stick Press',
 	},
 
 	// Special actions

@@ -12,15 +12,26 @@ export function isControlScheme(value: string): value is ControlScheme {
 }
 
 export function getStoredControlScheme() {
-	const storedValue = localStorage.getItem(CONTROL_SCHEME_STORAGE_KEY);
-	return storedValue && isControlScheme(storedValue) ? storedValue : defaultControlScheme;
+	try {
+		const storedValue = localStorage.getItem(CONTROL_SCHEME_STORAGE_KEY);
+		return storedValue && isControlScheme(storedValue) ? storedValue : defaultControlScheme;
+	} catch {
+		return defaultControlScheme;
+	}
+}
+
+export function storeControlScheme(scheme: ControlScheme) {
+	try {
+		localStorage.setItem(CONTROL_SCHEME_STORAGE_KEY, scheme);
+	} catch {
+		// Browsing still works when storage is unavailable or blocked.
+	}
 }
 
 export function dispatchControlSchemeChange(scheme: ControlScheme) {
 	window.dispatchEvent(
 		new CustomEvent(CONTROL_SCHEME_EVENT, {
 			detail: { scheme },
-			bubbles: true,
-		})
+		}),
 	);
 }

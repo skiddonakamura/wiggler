@@ -1,0 +1,95 @@
+---
+title: Wilds Switch Axe
+description: A lightweight, Markdown-first Wiggler guide example.
+---
+
+import GuideMeta from '../../components/GuideMeta.astro';
+import BuildCard from '../../components/BuildCard.astro';
+import VideoLink from '../../components/VideoLink.astro';
+
+<GuideMeta
+	game="Monster Hunter Wilds"
+	weapon="Switch Axe"
+	version="0.1.0"
+	updated="August 8, 2026"
+	audience={["Intermediate", "Advanced"]}
+	contributors={["Sasch", "Wiggler contributors"]}
+>
+	A focused example of a guide that stays useful on a poor connection.
+</GuideMeta>
+
+> **What writers edit:** ordinary headings, paragraphs, lists, tables, links, and a handful of copy-pasteable blocks such as the build card below.
+
+## 1. Introduction to the Weapon
+
+Switch Axe rewards deliberate positioning, careful gauge management, and knowing when to exchange safety for damage. Start with one stable loop; add options as the matchup becomes familiar.
+
+### Who this is for
+
+- **Intermediate:** wants a reliable endgame route and a clear baseline.
+- **Advanced:** can adapt positioning and uptime to a monster’s openings.
+
+## 2. Inputs and Basics
+
+| Action | Switch | PlayStation | Xbox | Keyboard |
+| --- | --- | --- | --- | --- |
+| Light attack | X | Triangle | Y | Left mouse |
+| Heavy attack | A | Circle | B | Right mouse |
+| Morph | ZR | R2 | RT | Ctrl |
+| Focus strike | R | R1 | RB | Shift |
+
+<details>
+  <summary>Why this section is collapsed</summary>
+
+  Long reference material stays out of the way by default. This is native HTML, so it works without client-side JavaScript.
+</details>
+
+## 3. Mechanics and Numbers
+
+### Damage model
+
+$$
+\text{Raw damage} = ((\text{Base Raw} \times \text{modifiers}) + \text{flat raw})
+\times \text{sharpness} \times \frac{\text{HZV}}{100} \times \frac{\text{MV}}{100}
+$$
+
+| Term | Meaning |
+| --- | --- |
+| Raw | Weapon attack before elemental damage. |
+| MV | Motion value: how much of the attack stat a move uses. |
+| HZV | Hitzone value: the monster part’s damage multiplier. |
+
+<VideoLink
+	title="Counter timing demonstration"
+	href="https://www.youtube.com/"
+	description="An optional external video. No iframe, tracker, or video payload loads with this page."
+/>
+
+## 4. Endgame Build Guide
+
+<BuildCard title="The adaptable baseline" tier="Meta" audience="Advanced" calculator="https://www.mathhunter.ca/">
+
+#### Requirements
+
+- A suitable rarity-8 weapon and a level-appropriate charm.
+- Match elemental attack to the weapon element.
+
+#### Gameplan
+
+Use Rising Slash for dependable sustained damage. Switch to Full Release when the monster presents a long, predictable opening.
+
+#### Comfort options
+
+Stun Resistance, Speed Eating, and Shockproof for multiplayer are safe additions.
+
+</BuildCard>
+
+## 5. Resources and credits
+
+- **Calculator:** Link the exact set used to reproduce the result.
+- **Contributors:** Credit testing, theorycrafting, artwork, and corrections.
+- **Changelog:** Add a dated entry for every material update.
+
+### 0.1.0 — Template preview
+
+- Demonstrates Markdown tables, native collapsible details, build metadata, math, and a lightweight video link.

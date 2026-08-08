@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mdx from '@astrojs/mdx';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import { gameConfigs, sectionConfigs, weaponConfigs } from './src/utils/siteConfig.ts';
 
 // Generate weapon sidebar items for a game
@@ -24,6 +26,10 @@ function generateGameSidebar(/** @type {string} */ game) {
 
 // https://astro.build/config
 export default defineConfig({
+	markdown: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [rehypeKatex],
+	},
 	vite: {
 		resolve: {
 			alias: {
@@ -41,13 +47,10 @@ export default defineConfig({
 			// Set English as the default language for this site.
 			defaultLocale: 'en',
 			pagination: false,
-			components: {
-				Pagination: './src/components/CustomPagination.astro',
-				Sidebar: './src/components/CustomSidebar.astro',
-			},
 			customCss: ['./src/styles/custom.css'],
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
+				{ label: 'Template preview', link: '/prototype/' },
 				...gameConfigs.map((game) => ({
 					label: game.label,
 					items: generateGameSidebar(game.slug),
@@ -57,6 +60,9 @@ export default defineConfig({
 				baseUrl: 'https://github.com/skiddonakamura/wiggler/edit/main/wiggler-astro/',
 			},
 		}),
-		mdx(),
+		mdx({
+			remarkPlugins: [remarkMath],
+			rehypePlugins: [rehypeKatex],
+		}),
 	],
 });

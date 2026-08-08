@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { Card } from '@astrojs/starlight/components';
 import { processWeaponData } from '../utils/weapons';
 import type { WeaponContent } from '../utils/weapons';
 import { sectionConfigs, type GameSlug } from '../utils/siteConfig';
@@ -17,305 +16,326 @@ const weaponContentModules = {
 	world: import.meta.glob('../content/docs/world/weapons/*/*.{md,mdx}', { eager: true }),
 } satisfies Record<GameSlug, Record<string, WeaponContent>>;
 
-const allContent = Object.values(weaponContentModules[game]);
+const weapons = processWeaponData(Object.values(weaponContentModules[game]));
 
-// Process into structured weapon data
-const weapons = processWeaponData(allContent);
-
-const sectionIcons = {
-	guide: 'open-book',
-	progression: 'rocket',
-	endgame: 'star',
-	data: 'information',
+const sectionDescriptions = {
+	guide: 'Learn the moveset and core gameplan.',
+	progression: 'Build a loadout for the story.',
+	endgame: 'Choose a polished late-game set.',
+	data: 'Reference frame data and mechanics.',
 } as const;
 ---
 
 <weapon-selector>
-	<div class="weapon-grid">
-		{weapons.map((weapon, idx) => (
-			<button
-				class="weapon-button"
-				data-weapon={weapon.name}
-				aria-pressed="false"
-				aria-controls={`weapon-content-${weapon.name}`}
-				aria-label={weapon.displayName}
-			>
-				<Image
-					src={weapon.icon}
-					alt={weapon.displayName}
-				/>
-			</button>
-		))}
-	</div>
+	<section class="weapon-selector" aria-label="Weapon guides">
+		<div class="weapon-tabs" role="tablist" aria-label="Weapons">
+			{weapons.map((weapon, index) => (
+				<button
+					id={`weapon-tab-${game}-${weapon.name}`}
+					class="weapon-tab"
+					data-weapon-tab={weapon.name}
+					role="tab"
+					aria-label={weapon.displayName}
+					aria-selected="false"
+					aria-controls={`weapon-panel-${game}-${weapon.name}`}
+					tabindex={index === 0 ? 0 : -1}
+				>
+					<Image src={weapon.icon} alt="" />
+				</button>
+			))}
+		</div>
 
-	<div class="weapon-content-container">
 		{weapons.map((weapon) => (
-			<div
-				id={`weapon-content-${weapon.name}`}
-				class="weapon-content"
-				data-weapon-content={weapon.name}
+			<section
+				id={`weapon-panel-${game}-${weapon.name}`}
+				class="weapon-panel"
+				data-weapon-panel={weapon.name}
+				role="tabpanel"
+				aria-labelledby={`weapon-tab-${game}-${weapon.name}`}
 				hidden
 			>
-				<h2 class="weapon-title">{weapon.displayName}</h2>
-				<div class="section-cards">
+				<div class="panel-heading">
+					<Image src={weapon.icon} alt="" />
+					<div>
+						<h3>{weapon.displayName}</h3>
+					</div>
+				</div>
+
+				<div class="section-links">
 					{sectionConfigs.map((section) => (
-						<a
-							href={`/${game}/weapons/${weapon.name}/${section.slug}/`}
-							class="card-link"
-						>
-							<Card
-								title={section.label}
-								icon={sectionIcons[section.slug]}
-							/>
+						<a class="section-link" href={`/${game}/weapons/${weapon.name}/${section.slug}/`}>
+							<span class="section-label">{section.label}</span>
+							<span class="section-description">{sectionDescriptions[section.slug]}</span>
+							<span class="section-arrow" aria-hidden="true">→</span>
 						</a>
 					))}
 				</div>
-			</div>
+			</section>
 		))}
-	</div>
+	</section>
 </weapon-selector>
 
 <script>
 	class WeaponSelector extends HTMLElement {
-		private weapons: HTMLButtonElement[];
-		private contentPanels: HTMLElement[];
+		private tabs: HTMLButtonElement[] = [];
+		private panels: HTMLElement[] = [];
 
-		constructor() {
-			super();
-			this.weapons = Array.from(this.querySelectorAll('[data-weapon]')) as HTMLButtonElement[];
-			this.contentPanels = Array.from(this.querySelectorAll('[data-weapon-content]')) as HTMLElement[];
+		connectedCallback() {
+			this.tabs = Array.from(this.querySelectorAll('[data-weapon-tab]'));
+			this.panels = Array.from(this.querySelectorAll('[data-weapon-panel]'));
 
-			// Bind click handlers
-			this.weapons.forEach((weapon) => {
-				weapon.addEventListener('click', () => this.selectWeapon(weapon));
-			});
-
-			// Keyboard navigation
-			this.weapons.forEach((weapon, idx) => {
-				weapon.addEventListener('keydown', (e) => {
-					const key = e.key;
-
-					// Arrow key navigation
-					if (key === 'ArrowRight' || key === 'ArrowLeft' || key === 'ArrowDown' || key === 'ArrowUp') {
-						e.preventDefault();
-
-						let newIdx = idx;
-						if (key === 'ArrowRight') {
-							newIdx = (idx + 1) % this.weapons.length;
-						} else if (key === 'ArrowLeft') {
-							newIdx = (idx - 1 + this.weapons.length) % this.weapons.length;
-						} else if (key === 'ArrowDown') {
-							// Move down a row (7 columns on wide screens, adjust based on viewport)
-							newIdx = Math.min(idx + 7, this.weapons.length - 1);
-						} else if (key === 'ArrowUp') {
-							// Move up a row
-							newIdx = Math.max(idx - 7, 0);
-						}
-
-						this.weapons[newIdx]?.focus();
-					}
-
-					// Enter or Space to select
-					if (key === 'Enter' || key === ' ') {
-						e.preventDefault();
-						this.selectWeapon(weapon);
-					}
-
-					// Escape to deselect
-					if (key === 'Escape') {
-						e.preventDefault();
-						this.deselectAll();
-					}
-				});
+			this.tabs.forEach((tab) => {
+				tab.addEventListener('click', this.handleClick);
+				tab.addEventListener('keydown', this.handleKeydown);
 			});
 		}
 
-		selectWeapon(weaponElement: HTMLButtonElement) {
-			const weaponName = weaponElement.dataset.weapon;
-			if (!weaponName) return;
+		disconnectedCallback() {
+			this.tabs.forEach((tab) => {
+				tab.removeEventListener('click', this.handleClick);
+				tab.removeEventListener('keydown', this.handleKeydown);
+			});
+		}
 
-			const isCurrentlySelected = weaponElement.getAttribute('aria-pressed') === 'true';
+		private handleClick = (event: Event) => {
+			this.selectTab(event.currentTarget as HTMLButtonElement, true);
+		};
 
-			if (isCurrentlySelected) {
-				// Deselect if clicking the same weapon
-				this.deselectAll();
-			} else {
-				// Hide all content panels
-				this.contentPanels.forEach(panel => {
-					panel.hidden = true;
-				});
+		private handleKeydown = (event: KeyboardEvent) => {
+			const currentTab = event.currentTarget as HTMLButtonElement;
+			const currentIndex = this.tabs.indexOf(currentTab);
+			let nextIndex: number | null = null;
 
-				// Show selected weapon's content
-				const panel = this.querySelector(`[data-weapon-content="${weaponName}"]`) as HTMLElement;
-				if (panel) {
-					panel.hidden = false;
-					// Smooth scroll to content
-					setTimeout(() => {
-						panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-					}, 100);
-				}
-
-				// Update ARIA states
-				this.weapons.forEach(w => w.setAttribute('aria-pressed', 'false'));
-				weaponElement.setAttribute('aria-pressed', 'true');
+			switch (event.key) {
+				case 'ArrowRight':
+					nextIndex = (currentIndex + 1) % this.tabs.length;
+					break;
+				case 'ArrowLeft':
+					nextIndex = (currentIndex - 1 + this.tabs.length) % this.tabs.length;
+					break;
+				case 'ArrowDown':
+					nextIndex = Math.min(currentIndex + this.columnCount(), this.tabs.length - 1);
+					break;
+				case 'ArrowUp':
+					nextIndex = Math.max(currentIndex - this.columnCount(), 0);
+					break;
+				case 'Home':
+					nextIndex = 0;
+					break;
+				case 'End':
+					nextIndex = this.tabs.length - 1;
+					break;
 			}
+
+			if (nextIndex === null) return;
+
+			event.preventDefault();
+			const nextTab = this.tabs[nextIndex];
+			this.selectTab(nextTab, false);
+			nextTab.focus();
+		};
+
+		private columnCount() {
+			const firstRowTop = this.tabs[0]?.getBoundingClientRect().top;
+			if (firstRowTop === undefined) return 1;
+
+			const nextRowIndex = this.tabs.findIndex(
+				(tab, index) => index > 0 && tab.getBoundingClientRect().top > firstRowTop + 1
+			);
+
+			return nextRowIndex === -1 ? this.tabs.length : nextRowIndex;
 		}
 
-		deselectAll() {
-			// Hide all content panels
-			this.contentPanels.forEach(panel => {
-				panel.hidden = true;
+		private selectTab(selectedTab: HTMLButtonElement, shouldScroll: boolean) {
+			const weapon = selectedTab.dataset.weaponTab;
+			if (!weapon) return;
+
+			this.tabs.forEach((tab) => {
+				const isSelected = tab === selectedTab;
+				tab.setAttribute('aria-selected', String(isSelected));
+				tab.tabIndex = isSelected ? 0 : -1;
 			});
 
-			// Update ARIA states
-			this.weapons.forEach(w => w.setAttribute('aria-pressed', 'false'));
+			this.panels.forEach((panel) => {
+				panel.hidden = panel.dataset.weaponPanel !== weapon;
+			});
+
+			if (shouldScroll) {
+				this.querySelector(`[data-weapon-panel="${weapon}"]`)?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'nearest',
+				});
+			}
 		}
 	}
 
-	customElements.define('weapon-selector', WeaponSelector);
+	if (!customElements.get('weapon-selector')) {
+		customElements.define('weapon-selector', WeaponSelector);
+	}
 </script>
 
 <style>
 	weapon-selector {
 		display: block;
-		margin: 2rem 0;
+		margin: 2.5rem 0;
 	}
 
-	.weapon-grid {
-		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(2, 1fr);
-		margin-bottom: 2rem;
-		align-items: start;
-		justify-items: center;
+	.weapon-selector {
+		--selector-border: color-mix(in srgb, var(--sl-color-gray-4), transparent 30%);
 	}
 
-	@media (min-width: 640px) {
-		.weapon-grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.weapon-grid {
-			grid-template-columns: repeat(5, 1fr);
-		}
-	}
-
-	@media (min-width: 1280px) {
-		.weapon-grid {
-			grid-template-columns: repeat(7, 1fr);
-		}
-	}
-
-	.weapon-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.panel-heading h3 {
+		border: 0;
+		color: var(--sl-color-white);
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		margin: 0;
 		padding: 0;
-		margin: 0 !important;
-		background: var(--sl-color-gray-6);
-		border: 2px solid var(--sl-color-gray-5);
-		border-radius: var(--sl-border-radius);
-		cursor: pointer;
-		transition: all 0.2s ease;
-		width: 68px;
-		height: 68px;
 	}
 
-	.weapon-button:first-child {
-		margin-top: 0 !important;
+	.weapon-tabs {
+		box-sizing: border-box;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: center;
+		max-width: 48rem;
+		margin-inline: auto;
+		padding: 0 1rem 1rem;
 	}
 
-	.weapon-button:hover {
+	.weapon-tab {
+		align-items: center;
 		background: var(--sl-color-gray-5);
-		border-color: var(--sl-color-white);
+		border: 1px solid transparent;
+		border-radius: 0.6rem;
+		color: var(--sl-color-gray-1);
+		cursor: pointer;
+		display: flex;
+		font: inherit;
+		justify-content: center;
+		margin: 0;
+		aspect-ratio: 1;
+		padding: 0.45rem;
+		transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+		width: calc((100% - 1.5rem) / 4);
 	}
 
-	.weapon-button:focus {
-		outline: 2px solid var(--sl-color-accent);
+	.weapon-tab:hover {
+		background: var(--sl-color-gray-4);
+		transform: translateY(-1px);
+	}
+
+	.weapon-tab[aria-selected='true'] {
+		background: var(--sl-color-accent-low);
+		border-color: var(--sl-color-accent);
+		color: var(--sl-color-white);
+	}
+
+	.weapon-tab:focus-visible,
+	.section-link:focus-visible {
+		outline: 3px solid var(--sl-color-accent-high);
 		outline-offset: 2px;
 	}
 
-	.weapon-button[aria-pressed="true"] {
-		background: var(--sl-color-accent);
-		border-color: var(--sl-color-accent-high);
-	}
-
-	.weapon-button img {
-		width: 64px;
-		height: 64px;
+	.weapon-tab img {
+		height: clamp(2rem, 6vw, 2.75rem);
+		margin: 0;
 		object-fit: contain;
-		display: block;
+		width: clamp(2rem, 6vw, 2.75rem);
 	}
 
-	.weapon-content-container {
-		margin-top: 2rem;
+	.weapon-panel {
+		border-top: 1px solid var(--selector-border);
+		padding: clamp(1.25rem, 3vw, 2rem);
 	}
 
-	.weapon-content {
-		animation: fadeIn 0.3s ease-in-out;
+	.panel-heading {
+		align-items: center;
+		display: flex;
+		gap: 0.85rem;
+		margin-bottom: 1.25rem;
 	}
 
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(-10px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.panel-heading img {
+		height: 3.5rem;
+		margin: 0;
+		object-fit: contain;
+		width: 3.5rem;
 	}
 
-	.weapon-title {
-		font-size: 2rem;
-		font-weight: 700;
-		margin-bottom: 1.5rem;
-		color: var(--sl-color-white);
-		border-bottom: 2px solid var(--sl-color-accent);
-		padding-bottom: 0.5rem;
-	}
-
-	/* Section cards grid */
-	.section-cards {
+	.section-links {
 		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(1, 1fr);
-		margin-top: 1.5rem;
+		gap: 0.6rem;
 	}
 
-	@media (min-width: 640px) {
-		.section-cards {
-			grid-template-columns: repeat(2, 1fr);
+	.section-link {
+		background: var(--sl-color-black);
+		border: 1px solid var(--selector-border);
+		border-radius: 0.65rem;
+		color: inherit;
+		display: grid;
+		gap: 0.15rem 1rem;
+		grid-template-columns: 1fr auto;
+		padding: 0.9rem 1rem;
+		text-decoration: none;
+		transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+	}
+
+	.section-link:hover {
+		background: var(--sl-color-gray-5);
+		border-color: var(--sl-color-accent);
+		transform: translateX(2px);
+	}
+
+	.section-label {
+		color: var(--sl-color-white);
+		font-weight: 700;
+	}
+
+	.section-description {
+		color: var(--sl-color-gray-2);
+		font-size: 0.9rem;
+		grid-column: 1;
+	}
+
+	.section-arrow {
+		align-self: center;
+		color: var(--sl-color-accent);
+		font-size: 1.25rem;
+		grid-column: 2;
+		grid-row: 1 / span 2;
+	}
+
+	@media (min-width: 32rem) {
+		.weapon-tab {
+			width: calc((100% - 2rem) / 5);
 		}
 	}
 
-	/* Ensure all cards have consistent spacing */
-	.section-cards :global(.card) {
-		margin-top: 0 !important;
+	@media (min-width: 48rem) {
+		.weapon-tabs {
+			padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+		}
+
+		.weapon-tab {
+			width: calc((100% - 2.5rem) / 6);
+		}
+
+		.section-links {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
-	/* Style the clickable card links */
-	.card-link {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-		height: 100%;
-		transition: transform 0.2s ease;
+	@media (min-width: 70rem) {
+		.weapon-tab {
+			width: calc((100% - 3rem) / 7);
+		}
 	}
 
-	.card-link:hover {
-		transform: translateY(-2px);
-	}
-
-	/* Style cards within weapon content */
-	.weapon-content :global(.card) {
-		height: 100%;
-		transition: border-color 0.2s ease;
-	}
-
-	.card-link:hover :global(.card) {
-		border-color: var(--sl-color-accent);
+	@media (prefers-reduced-motion: reduce) {
+		.weapon-tab,
+		.section-link {
+			transition: none;
+		}
 	}
 </style>
